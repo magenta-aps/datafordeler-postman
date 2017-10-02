@@ -1,0 +1,25 @@
+{
+  "name": "saml-library",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "prebuild": "mkdir -p build/",
+    "build": "browserify decode.js > build/tmp.js",
+    "postbuild": "uglifyjs build/tmp.js --compress --mangle -- > build/saml_decode.js",
+    "prestart": "npm run build",
+    "start": "opn index.html",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Emil Madsen",
+  "license": "MPLv2",
+  "dependencies": {
+    "zlib": "^1.0.5"
+  },
+  "devDependencies": {
+    "browserify": "^14.4.0",
+    "node-gyp": "^3.6.2",
+    "opn-cli": "^3.1.0",
+    "uglify-js": "^3.1.3"
+  }
+}

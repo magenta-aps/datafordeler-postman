@@ -1,0 +1,36 @@
+<html>
+    <head>
+        <script src="build/saml_decode.js"></script>
+        <script>
+            window.onload = function() {
+                var form = document.querySelector("form");
+                form.onsubmit = decode_saml.bind(form);
+            }
+
+            function decode_saml(event)
+            {
+                event.preventDefault();
+
+                saml_token = document.getElementById("input").value
+                xml = saml_decode(saml_token);
+                document.getElementById("output").value = xml
+            }
+        </script>
+    </head>
+    <body>
+        <form>
+            <label>Input:</label>
+            <textarea id="input" rows="5" style="width: 100%" placeholder="SAML Token HERE"></textarea>
+            <input type="submit"/>
+        </form>
+
+        <br/>
+        <br/>
+        <hr/>
+        <br/>
+        <br/>
+
+        <label>Decoded SAML:</label>
+        <textarea id="output" rows="40" style="width: 100%" placeholder="SAML XML output here" readonly></textarea>
+    </body>
+</html>
