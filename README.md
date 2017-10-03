@@ -1,5 +1,6 @@
 Postman Test-suite
-------------------
+==================
+
 Tests the Datafordeler Secure Token Service, and Datafordeler Services using
 [Postman](https://www.getpostman.com/).
 

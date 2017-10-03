@@ -1,5 +1,6 @@
-SAML-library
-------------
+SAML-Library
+============
+
 Library to parse SAML tokens with Postman.
 
 # Building
