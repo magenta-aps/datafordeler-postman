@@ -351,7 +351,185 @@
 					"description": "\n",
 					"item": [
 						{
-							"name": "Search for CPR number",
+							"name": "1.1 Self documented API",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											"pm.test(\"Self documented API\", function () {",
+											"    // Check for the JSON keys to exist",
+											"    pm.expect(pm.response.text()).to.include(\"metadata_url\");",
+											"    pm.expect(pm.response.text()).to.include(\"fetch_url\");",
+											"    pm.expect(pm.response.text()).to.include(\"search_url\");",
+											"    pm.expect(pm.response.text()).to.include(\"declaration_url\");",
+											"    pm.expect(pm.response.text()).to.include(\"search_queryfields\");",
+											"});",
+											"",
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});"
+										]
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											"var schema = {",
+											"    \"type\": \"object\",",
+											"    \"additionalProperties\": false,",
+											"    \"minProperties\": 8,",
+											"    \"properties\": {",
+											"        \"path\": {",
+											"            \"type\": \"string\"",
+											"        },",
+											"        \"terms\": {",
+											"            \"type\": \"string\"",
+											"        },",
+											"        \"requestTimestamp\": {",
+											"            \"type\": \"string\"",
+											"        },",
+											"        \"responseTimestamp\": {",
+											"            \"type\": \"string\"",
+											"        },",
+											"        \"username\": {",
+											"            \"type\": \"string\"",
+											"        },",
+											"        \"page\": {",
+											"            \"type\": \"number\"",
+											"        },",
+											"        \"pageSize\": {",
+											"            \"type\": \"number\"",
+											"        },",
+											"        \"results\": {",
+											"            \"type\": \"array\",",
+											"            \"items\": {",
+											"                \"type\": \"object\",",
+											"                \"additionalProperties\": false,",
+											"                \"minProperties\": 4,",
+											"                \"properties\": {",
+											"                    \"UUID\": {",
+											"                        \"type\": \"string\",",
+											"                    },",
+											"                    \"personnummer\": {",
+											"                        \"type\": \"string\",",
+											"                    },",
+											"                    \"id\": {",
+											"                        \"type\": \"object\",",
+											"                        \"additionalProperties\": false,",
+											"                        \"minProperties\": 2,",
+											"                        \"properties\": {",
+											"                            \"uuid\": {",
+											"                                \"type\": \"string\",",
+											"                            },",
+											"                            \"domaene\": {",
+											"                                \"type\": \"string\",",
+											"                            },",
+											"                        }",
+											"                    },",
+											"                    \"registreringer\": {",
+											"                        \"type\": \"array\",",
+											"                        \"minItems\": 1,",
+											"                        \"items\": {",
+											"                            \"type\": \"object\",",
+											"                            \"required\": [\"registreringFra\", \"registreringTil\"],",
+											"                            \"minProperties\": 3,",
+											"                            \"properties\": {",
+											"                                /*",
+											"                                \"registreringFra\": {",
+											"                                    \"type\": \"string\"",
+											"                                },",
+											"                                \"registreringTil\": {",
+											"                                    \"type\": \"string\",",
+											"                                },",
+											"                                */",
+											"                                \"adresseoplysninger\" : {",
+											"                                    \"type\": \"array\",",
+											"                                    \"minItems\": 1,",
+											"                                    \"items\": {",
+											"                                        \"type\": \"object\",",
+											"                                        \"required\": [\"virkningFra\", \"virkningTil\", \"lastUpdated\", \"conavn\", \"cpradresse\"],",
+											"                                        \"properties\": {",
+											"                                            /*",
+											"                                            \"virkningFra\": {",
+											"                                                \"type\": \"null\"",
+											"                                            },",
+											"                                            \"virkningTil\": {",
+											"                                                \"type\": \"null\"",
+											"                                            },",
+											"                                            */",
+											"                                            \"lastUpdated\": {",
+											"                                                \"type\": \"string\"",
+											"                                            },",
+											"                                            /*",
+											"                                            \"conavn\": {",
+											"                                                \"type\": \"string\"",
+											"                                            },",
+											"                                            \"cpradresse\": {",
+											"                                                \"type\": \"null\"",
+											"                                            }",
+											"                                            */",
+											"                                        }",
+											"                                    }",
+											"                                },",
+											"                                \"navnemyndighed\" : {",
+											"                                    \"type\": \"array\",",
+											"                                    \"minItems\": 1,",
+											"                                    \"items\": {",
+											"                                        \"type\": \"object\",",
+											"                                        \"required\": [\"virkningFra\", \"virkningTil\", \"lastUpdated\", \"myndighed\"],",
+											"                                        \"properties\": {",
+											"                                            /*",
+											"                                            \"virkningFra\": {",
+											"                                                \"type\": \"null\"",
+											"                                            },",
+											"                                            \"virkningTil\": {",
+											"                                                \"type\": \"null\"",
+											"                                            },",
+											"                                            */",
+											"                                            \"lastUpdated\": {",
+											"                                                \"type\": \"string\"",
+											"                                            },",
+											"                                            \"myndighed\": {",
+											"                                                \"type\": \"string\"",
+											"                                            }",
+											"                                        }",
+											"                                    }",
+											"                                }",
+											"                            }",
+											"                        }",
+											"                    }",
+											"                }",
+											"            }",
+											"        }",
+											"    }",
+											"};",
+											"",
+											"pm.globals.set(\"cpr_person_schema\", JSON.stringify(schema));"
+										]
+									}
+								}
+							],
+							"request": {
+								"url": "https://test.data.gl/cpr/person/1/rest/",
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "SAML {{dafo_cpr_token}}",
+										"description": "The DAFO token used for authorization."
+									}
+								],
+								"body": {},
+								"description": "Call the self documentation endpoint."
+							},
+							"response": []
+						},
+						{
+							"name": "1.2 Search for CPR number",
 							"event": [
 								{
 									"listen": "test",
@@ -362,36 +540,13 @@
 											"    pm.response.to.have.status(200);",
 											"});",
 											"",
-											"var schema = {",
-											"  \"path\": {",
-											"    \"type\": \"string\"",
-											"  },",
-											"  \"terms\": {",
-											"    \"type\": \"string\"",
-											"  },",
-											"  \"requestTimestamp\": {",
-											"    \"type\": \"string\"",
-											"  },",
-											"  \"responseTimestamp\": {",
-											"    \"type\": \"string\"",
-											"  },",
-											"  \"username\": {",
-											"    \"type\": \"string\"",
-											"  },",
-											"  \"page\": {",
-											"    \"type\": \"int\"",
-											"  },",
-											"  \"pageSize\": {",
-											"    \"type\": \"int\"",
-											"  },",
-											"  \"results\": {",
-											"    \"type\": \"array\"",
-											"  }",
-											"};",
+											"var schema = JSON.parse(pm.globals.get(\"cpr_person_schema\"));",
 											"",
 											"pm.test('Schema is valid', function() {",
 											"    var jsonData = pm.response.json();",
-											"    pm.expect(tv4.validate(jsonData, schema)).to.be.true;",
+											"    valid = tv4.validate(jsonData, schema);",
+											"    // console.log(tv4.error);",
+											"    pm.expect(valid).to.be.true;",
 											"});",
 											"",
 											"pm.test(\"Test reply\", function () {",
@@ -443,7 +598,7 @@
 							"response": []
 						},
 						{
-							"name": "Lookup CPR person",
+							"name": "1.3 Lookup CPR person",
 							"event": [
 								{
 									"listen": "test",
@@ -454,48 +609,27 @@
 											"    pm.response.to.have.status(200);",
 											"});",
 											"",
-											"var schema = {",
-											"  \"path\": {",
-											"    \"type\": \"string\"",
-											"  },",
-											"  \"terms\": {",
-											"    \"type\": \"string\"",
-											"  },",
-											"  \"requestTimestamp\": {",
-											"    \"type\": \"string\"",
-											"  },",
-											"  \"responseTimestamp\": {",
-											"    \"type\": \"string\"",
-											"  },",
-											"  \"username\": {",
-											"    \"type\": \"string\"",
-											"  },",
-											"  \"page\": {",
-											"    \"type\": \"int\"",
-											"  },",
-											"  \"pageSize\": {",
-											"    \"type\": \"int\"",
-											"  },",
-											"  \"results\": {",
-											"    \"type\": \"array\"",
-											"  }",
-											"};",
+											"",
+											"var schema = JSON.parse(pm.globals.get(\"cpr_person_schema\"));",
 											"",
 											"pm.test('Schema is valid', function() {",
 											"    var jsonData = pm.response.json();",
-											"    pm.expect(tv4.validate(jsonData, schema)).to.be.true;",
+											"    valid = tv4.validate(jsonData, schema);",
+											"    // console.log(tv4.error);",
+											"    pm.expect(valid).to.be.true;",
 											"});",
 											"",
 											"pm.test(\"Test reply\", function () {",
 											"    var jsonData = pm.response.json();",
 											"    pm.expect(jsonData.page).to.eql(1);",
+											"    pm.expect(jsonData.results.length).to.eql(1);",
 											"});"
 										]
 									}
 								}
 							],
 							"request": {
-								"url": "https://test.data.gl/cpr/person/1/rest/869e47d9-65c3-39b7-bd46-171b384faa5f",
+								"url": "https://test.data.gl/cpr/person/1/rest/06a3c66f-e77c-35fc-b2f4-ac91129dc5e0",
 								"method": "GET",
 								"header": [
 									{
@@ -508,9 +642,16 @@
 								"description": "Lookup a specific person in the CPR register."
 							},
 							"response": []
-						},
+						}
+					],
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Road",
+					"description": "",
+					"item": [
 						{
-							"name": "Self documented API",
+							"name": "1.1 Self documented API",
 							"event": [
 								{
 									"listen": "test",
@@ -531,50 +672,116 @@
 											"});"
 										]
 									}
-								}
-							],
-							"request": {
-								"url": "https://test.data.gl/cpr/person/1/rest/",
-								"method": "GET",
-								"header": [
-									{
-										"key": "Authorization",
-										"value": "SAML {{dafo_cpr_token}}",
-										"description": "The DAFO token used for authorization."
-									}
-								],
-								"body": {},
-								"description": "Call the self documentation endpoint."
-							},
-							"response": []
-						}
-					],
-					"_postman_isSubFolder": true
-				},
-				{
-					"name": "Road",
-					"description": "",
-					"item": [
-						{
-							"name": "Self documented API",
-							"event": [
+								},
 								{
-									"listen": "test",
+									"listen": "prerequest",
 									"script": {
 										"type": "text/javascript",
 										"exec": [
-											"pm.test(\"Self documented API\", function () {",
-											"    // Check for the JSON keys to exist",
-											"    pm.expect(pm.response.text()).to.include(\"metadata_url\");",
-											"    pm.expect(pm.response.text()).to.include(\"fetch_url\");",
-											"    pm.expect(pm.response.text()).to.include(\"search_url\");",
-											"    pm.expect(pm.response.text()).to.include(\"declaration_url\");",
-											"    pm.expect(pm.response.text()).to.include(\"search_queryfields\");",
-											"});",
+											"var schema = {",
+											"    \"type\": \"object\",",
+											"    \"additionalProperties\": false,",
+											"    \"minProperties\": 8,",
+											"    \"properties\": {",
+											"        \"path\": {",
+											"            \"type\": \"string\"",
+											"        },",
+											"        \"terms\": {",
+											"            \"type\": \"string\"",
+											"        },",
+											"        \"requestTimestamp\": {",
+											"            \"type\": \"string\"",
+											"        },",
+											"        \"responseTimestamp\": {",
+											"            \"type\": \"string\"",
+											"        },",
+											"        \"username\": {",
+											"            \"type\": \"string\"",
+											"        },",
+											"        \"page\": {",
+											"            \"type\": \"number\"",
+											"        },",
+											"        \"pageSize\": {",
+											"            \"type\": \"number\"",
+											"        },",
+											"        \"results\": {",
+											"            \"type\": \"array\",",
+											"            \"items\": {",
+											"                \"type\": \"object\",",
+											"                \"additionalProperties\": false,",
+											"                \"minProperties\": 6,",
+											"                \"properties\": {",
+											"                    \"UUID\": {",
+											"                        \"type\": \"string\",",
+											"                    },",
+											"                    \"kommunekode\": {",
+											"                        \"type\": \"number\",",
+											"                    },",
+											"                    \"vejkode\": {",
+											"                        \"type\": \"number\",",
+											"                    },",
+											"                    \"municipalityCode\": {",
+											"                        \"type\": \"number\",",
+											"                    },",
+											"                    \"domaene\": {",
+											"                        \"type\": \"string\",",
+											"                    },",
+											"                    \"registreringer\": {",
+											"                        \"type\": \"array\",",
+											"                        \"minItems\": 1,",
+											"                        \"items\": {",
+											"                            \"type\": \"object\",",
+											"                            \"required\": [\"registreringFra\", \"registreringTil\", \"sekvensnummer\", \"checksum\"],",
+											"                            \"minProperties\": 5,",
+											"                            \"properties\": {",
+											"                                \"sekvensnummer\": {",
+											"                                    \"type\": \"number\"",
+											"                                },",
+											"                                /*",
+											"                                \"registreringFra\": {",
+											"                                    \"type\": \"string\"",
+											"                                },",
+											"                                \"registreringTil\": {",
+											"                                    \"type\": \"string\",",
+											"                                },",
+											"                                \"checksum\": {",
+											"                                    \"type\": \"string\",",
+											"                                },",
+											"                                */",
+											"                                \"sidstImporteret\": {",
+											"                                    \"type\": \"string\",",
+											"                                },",
+											"                                \"virkninger\" : {",
+											"                                    \"type\": \"array\",",
+											"                                    \"minItems\": 1,",
+											"                                    \"items\": {",
+											"                                        \"type\": \"object\",",
+											"                                        \"required\": [\"virkningFra\", \"virkningTil\", \"data\"],",
+											"                                        \"properties\": {",
+											"                                            /*",
+											"                                            \"virkningFra\": {",
+											"                                                \"type\": \"null\"",
+											"                                            },",
+											"                                            \"virkningTil\": {",
+											"                                                \"type\": \"null\"",
+											"                                            },",
+											"                                            */",
+											"                                            \"data\": {",
+											"                                                \"type\": \"object\"",
+											"                                            }",
+											"                                        }",
+											"                                    }",
+											"                                }",
+											"                            }",
+											"                        }",
+											"                    }",
+											"                }",
+											"            }",
+											"        }",
+											"    }",
+											"};",
 											"",
-											"pm.test(\"Status code is 200\", function () {",
-											"    pm.response.to.have.status(200);",
-											"});"
+											"pm.globals.set(\"cpr_road_schema\", JSON.stringify(schema));"
 										]
 									}
 								}
@@ -595,7 +802,7 @@
 							"response": []
 						},
 						{
-							"name": "Search for Road",
+							"name": "1.2 Search for Road",
 							"event": [
 								{
 									"listen": "test",
@@ -606,36 +813,13 @@
 											"    pm.response.to.have.status(200);",
 											"});",
 											"",
-											"var schema = {",
-											"  \"path\": {",
-											"    \"type\": \"string\"",
-											"  },",
-											"  \"terms\": {",
-											"    \"type\": \"string\"",
-											"  },",
-											"  \"requestTimestamp\": {",
-											"    \"type\": \"string\"",
-											"  },",
-											"  \"responseTimestamp\": {",
-											"    \"type\": \"string\"",
-											"  },",
-											"  \"username\": {",
-											"    \"type\": \"string\"",
-											"  },",
-											"  \"page\": {",
-											"    \"type\": \"int\"",
-											"  },",
-											"  \"pageSize\": {",
-											"    \"type\": \"int\"",
-											"  },",
-											"  \"results\": {",
-											"    \"type\": \"array\"",
-											"  }",
-											"};",
+											"var schema = JSON.parse(pm.globals.get(\"cpr_road_schema\"));",
 											"",
 											"pm.test('Schema is valid', function() {",
 											"    var jsonData = pm.response.json();",
-											"    pm.expect(tv4.validate(jsonData, schema)).to.be.true;",
+											"    valid = tv4.validate(jsonData, schema);",
+											"    // console.log(tv4.error);",
+											"    pm.expect(valid).to.be.true;",
 											"});",
 											"",
 											"pm.test(\"Test reply\", function () {",
@@ -685,6 +869,51 @@
 								"description": "Search for a road in the CPR register."
 							},
 							"response": []
+						},
+						{
+							"name": "1.3 Lookup Road",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											"pm.test(\"Status code\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"var schema = JSON.parse(pm.globals.get(\"cpr_road_schema\"));",
+											"",
+											"pm.test('Schema is valid', function() {",
+											"    var jsonData = pm.response.json();",
+											"    valid = tv4.validate(jsonData, schema);",
+											"    // console.log(tv4.error);",
+											"    pm.expect(valid).to.be.true;",
+											"});",
+											"",
+											"pm.test(\"Test reply\", function () {",
+											"    var jsonData = pm.response.json();",
+											"    pm.expect(jsonData.page).to.eql(1);",
+											"    pm.expect(jsonData.results.length).to.eql(1);",
+											"});"
+										]
+									}
+								}
+							],
+							"request": {
+								"url": "https://test.data.gl/cpr/road/1/rest/33052bb6-52ec-3270-9988-0cc0093bb013",
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "SAML {{dafo_cpr_token}}",
+										"description": "The DAFO token used for authorization."
+									}
+								],
+								"body": {},
+								"description": "Lookup a specific road in the CPR register."
+							},
+							"response": []
 						}
 					],
 					"_postman_isSubFolder": true
@@ -694,7 +923,7 @@
 					"description": "",
 					"item": [
 						{
-							"name": "Self documented API",
+							"name": "1.1 Self documented API",
 							"event": [
 								{
 									"listen": "test",
@@ -715,6 +944,109 @@
 											"});"
 										]
 									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											"var schema = {",
+											"    \"type\": \"object\",",
+											"    \"additionalProperties\": false,",
+											"    \"minProperties\": 8,",
+											"    \"properties\": {",
+											"        \"path\": {",
+											"            \"type\": \"string\"",
+											"        },",
+											"        \"terms\": {",
+											"            \"type\": \"string\"",
+											"        },",
+											"        \"requestTimestamp\": {",
+											"            \"type\": \"string\"",
+											"        },",
+											"        \"responseTimestamp\": {",
+											"            \"type\": \"string\"",
+											"        },",
+											"        \"username\": {",
+											"            \"type\": \"string\"",
+											"        },",
+											"        \"page\": {",
+											"            \"type\": \"number\"",
+											"        },",
+											"        \"pageSize\": {",
+											"            \"type\": \"number\"",
+											"        },",
+											"        \"results\": {",
+											"            \"type\": \"array\",",
+											"            \"items\": {",
+											"                \"type\": \"object\",",
+											"                \"additionalProperties\": false,",
+											"                \"minProperties\": 3,",
+											"                \"properties\": {",
+											"                    \"UUID\": {",
+											"                        \"type\": \"string\",",
+											"                    },",
+											"                    \"domaene\": {",
+											"                        \"type\": \"string\",",
+											"                    },",
+											"                    \"registreringer\": {",
+											"                        \"type\": \"array\",",
+											"                        \"minItems\": 1,",
+											"                        \"items\": {",
+											"                            \"type\": \"object\",",
+											"                            \"required\": [\"registreringFra\", \"registreringTil\", \"sekvensnummer\", \"checksum\"],",
+											"                            \"minProperties\": 5,",
+											"                            \"properties\": {",
+											"                                \"sekvensnummer\": {",
+											"                                    \"type\": \"number\"",
+											"                                },",
+											"                                /*",
+											"                                \"registreringFra\": {",
+											"                                    \"type\": \"string\"",
+											"                                },",
+											"                                \"registreringTil\": {",
+											"                                    \"type\": \"string\",",
+											"                                },",
+											"                                \"checksum\": {",
+											"                                    \"type\": \"string\",",
+											"                                },",
+											"                                */",
+											"                                \"sidstImporteret\": {",
+											"                                    \"type\": \"string\",",
+											"                                },",
+											"                                \"virkninger\" : {",
+											"                                    \"type\": \"array\",",
+											"                                    \"minItems\": 1,",
+											"                                    \"items\": {",
+											"                                        \"type\": \"object\",",
+											"                                        \"required\": [\"virkningFra\", \"virkningTil\", \"data\"],",
+											"                                        \"properties\": {",
+											"                                            /*",
+											"                                            \"virkningFra\": {",
+											"                                                \"type\": \"null\"",
+											"                                            },",
+											"                                            \"virkningTil\": {",
+											"                                                \"type\": \"null\"",
+											"                                            },",
+											"                                            */",
+											"                                            \"data\": {",
+											"                                                \"type\": \"object\"",
+											"                                            }",
+											"                                        }",
+											"                                    }",
+											"                                }",
+											"                            }",
+											"                        }",
+											"                    }",
+											"                }",
+											"            }",
+											"        }",
+											"    }",
+											"};",
+											"",
+											"pm.globals.set(\"cpr_residence_schema\", JSON.stringify(schema));"
+										]
+									}
 								}
 							],
 							"request": {
@@ -733,7 +1065,7 @@
 							"response": []
 						},
 						{
-							"name": "Search for Residence",
+							"name": "1.2 Search for Residence",
 							"event": [
 								{
 									"listen": "test",
@@ -744,36 +1076,13 @@
 											"    pm.response.to.have.status(200);",
 											"});",
 											"",
-											"var schema = {",
-											"  \"path\": {",
-											"    \"type\": \"string\"",
-											"  },",
-											"  \"terms\": {",
-											"    \"type\": \"string\"",
-											"  },",
-											"  \"requestTimestamp\": {",
-											"    \"type\": \"string\"",
-											"  },",
-											"  \"responseTimestamp\": {",
-											"    \"type\": \"string\"",
-											"  },",
-											"  \"username\": {",
-											"    \"type\": \"string\"",
-											"  },",
-											"  \"page\": {",
-											"    \"type\": \"int\"",
-											"  },",
-											"  \"pageSize\": {",
-											"    \"type\": \"int\"",
-											"  },",
-											"  \"results\": {",
-											"    \"type\": \"array\"",
-											"  }",
-											"};",
+											"var schema = JSON.parse(pm.globals.get(\"cpr_residence_schema\"));",
 											"",
 											"pm.test('Schema is valid', function() {",
 											"    var jsonData = pm.response.json();",
-											"    pm.expect(tv4.validate(jsonData, schema)).to.be.true;",
+											"    valid = tv4.validate(jsonData, schema);",
+											"    // console.log(tv4.error);",
+											"    pm.expect(valid).to.be.true;",
 											"});",
 											"",
 											"pm.test(\"Test reply\", function () {",
@@ -821,6 +1130,51 @@
 								],
 								"body": {},
 								"description": "Search for a residence in the CPR register."
+							},
+							"response": []
+						},
+						{
+							"name": "1.3 Lookup Resience",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											"pm.test(\"Status code\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"var schema = JSON.parse(pm.globals.get(\"cpr_residence_schema\"));",
+											"",
+											"pm.test('Schema is valid', function() {",
+											"    var jsonData = pm.response.json();",
+											"    valid = tv4.validate(jsonData, schema);",
+											"    // console.log(tv4.error);",
+											"    pm.expect(valid).to.be.true;",
+											"});",
+											"",
+											"pm.test(\"Test reply\", function () {",
+											"    var jsonData = pm.response.json();",
+											"    pm.expect(jsonData.page).to.eql(1);",
+											"    pm.expect(jsonData.results.length).to.eql(1);",
+											"});"
+										]
+									}
+								}
+							],
+							"request": {
+								"url": "https://test.data.gl/cpr/residence/1/rest/377e2d63-79e7-3f4e-940f-81ca0684a88a",
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "SAML {{dafo_cpr_token}}",
+										"description": "The DAFO token used for authorization."
+									}
+								],
+								"body": {},
+								"description": "Lookup a specific residence in the CPR register."
 							},
 							"response": []
 						}
@@ -1013,7 +1367,7 @@
 					"description": "",
 					"item": [
 						{
-							"name": "Self documented API",
+							"name": "1.1 Self documented API",
 							"event": [
 								{
 									"listen": "test",
@@ -1034,6 +1388,140 @@
 											"});"
 										]
 									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											"var schema = {",
+											"    \"type\": \"object\",",
+											"    \"additionalProperties\": false,",
+											"    \"minProperties\": 8,",
+											"    \"properties\": {",
+											"        \"path\": {",
+											"            \"type\": \"string\"",
+											"        },",
+											"        \"terms\": {",
+											"            \"type\": \"string\"",
+											"        },",
+											"        \"requestTimestamp\": {",
+											"            \"type\": \"string\"",
+											"        },",
+											"        \"responseTimestamp\": {",
+											"            \"type\": \"string\"",
+											"        },",
+											"        \"username\": {",
+											"            \"type\": \"string\"",
+											"        },",
+											"        \"page\": {",
+											"            \"type\": \"number\"",
+											"        },",
+											"        \"pageSize\": {",
+											"            \"type\": \"number\"",
+											"        },",
+											"        \"results\": {",
+											"            \"type\": \"array\",",
+											"            \"items\": {",
+											"                \"type\": \"object\",",
+											"                \"additionalProperties\": false,",
+											"                \"minProperties\": 4,",
+											"                \"properties\": {",
+											"                    \"UUID\": {",
+											"                        \"type\": \"string\",",
+											"                    },",
+											"                    \"CVRNummer\": {",
+											"                        \"type\": \"number\",",
+											"                    },",
+											"                    \"id\": {",
+											"                        \"type\": \"object\",",
+											"                        \"additionalProperties\": false,",
+											"                        \"minProperties\": 2,",
+											"                        \"properties\": {",
+											"                            \"uuid\": {",
+											"                                \"type\": \"string\",",
+											"                            },",
+											"                            \"domaene\": {",
+											"                                \"type\": \"string\",",
+											"                            },",
+											"                        }",
+											"                    },",
+											"                    \"registreringer\": {",
+											"                        \"type\": \"array\",",
+											"                        \"minItems\": 1,",
+											"                        \"items\": {",
+											"                            \"type\": \"object\",",
+											"                            \"required\": [\"registreringFra\", \"registreringTil\"],",
+											"                            \"minProperties\": 3,",
+											"                            \"properties\": {",
+											"                                /*",
+											"                                \"registreringFra\": {",
+											"                                    \"type\": \"string\"",
+											"                                },",
+											"                                \"registreringTil\": {",
+											"                                    \"type\": \"string\",",
+											"                                },",
+											"                                */",
+											"                                \"virksomhedsnavn\" : {",
+											"                                    \"type\": \"array\",",
+											"                                    \"minItems\": 1,",
+											"                                    \"items\": {",
+											"                                        \"type\": \"object\",",
+											"                                        \"required\": [\"virkningFra\", \"virkningTil\", \"lastUpdated\", \"navn\"],",
+											"                                        \"properties\": {",
+											"                                            /*",
+											"                                            \"virkningFra\": {",
+											"                                                \"type\": \"null\"",
+											"                                            },",
+											"                                            \"virkningTil\": {",
+											"                                                \"type\": \"null\"",
+											"                                            },",
+											"                                            */",
+											"                                            \"navn\": {",
+											"                                                \"type\": \"string\"",
+											"                                            }",
+											"                                        }",
+											"                                    }",
+											"                                },",
+											"                                \"virksomhedsform\" : {",
+											"                                    \"type\": \"array\",",
+											"                                    \"minItems\": 1,",
+											"                                    \"items\": {",
+											"                                        \"type\": \"object\",",
+											"                                        \"required\": [\"virkningFra\", \"virkningTil\", \"lastUpdated\", \"formkode\", \"dataleverandør\"],",
+											"                                        \"properties\": {",
+											"                                            /*",
+											"                                            \"virkningFra\": {",
+											"                                                \"type\": \"null\"",
+											"                                            },",
+											"                                            \"virkningTil\": {",
+											"                                                \"type\": \"null\"",
+											"                                            },",
+											"                                            */",
+											"                                            \"lastUpdated\": {",
+											"                                                \"type\": \"string\"",
+											"                                            },",
+											"                                            \"formkode\": {",
+											"                                                \"type\": \"string\"",
+											"                                            },",
+											"                                            \"dataleverandør\": {",
+											"                                                \"type\": \"string\"",
+											"                                            }",
+											"                                        }",
+											"                                    }",
+											"                                }",
+											"                            }",
+											"                        }",
+											"                    }",
+											"                }",
+											"            }",
+											"        }",
+											"    }",
+											"};",
+											"",
+											"pm.globals.set(\"cvr_company_schema\", JSON.stringify(schema));"
+										]
+									}
 								}
 							],
 							"request": {
@@ -1052,27 +1540,30 @@
 							"response": []
 						},
 						{
-							"name": "Search for company name",
+							"name": "1.2 Search for company name",
 							"event": [
 								{
 									"listen": "test",
 									"script": {
 										"type": "text/javascript",
 										"exec": [
-											"pm.test(\"Test reply headers\", function () {",
-											"    // Check for the JSON keys to exist",
-											"    pm.expect(pm.response.text()).to.include(\"path\");",
-											"    pm.expect(pm.response.text()).to.include(\"terms\");",
-											"    pm.expect(pm.response.text()).to.include(\"requestTimestamp\");",
-											"    pm.expect(pm.response.text()).to.include(\"responseTimestamp\");",
-											"    pm.expect(pm.response.text()).to.include(\"username\");",
-											"    pm.expect(pm.response.text()).to.include(\"page\");",
-											"    pm.expect(pm.response.text()).to.include(\"pageSize\");",
-											"    pm.expect(pm.response.text()).to.include(\"results\");",
+											"pm.test(\"Status code\", function () {",
+											"    pm.response.to.have.status(200);",
 											"});",
 											"",
-											"pm.test(\"Status code is 200\", function () {",
-											"    pm.response.to.have.status(200);",
+											"var schema = JSON.parse(pm.globals.get(\"cvr_company_schema\"));",
+											"",
+											"pm.test('Schema is valid', function() {",
+											"    var jsonData = pm.response.json();",
+											"    valid = tv4.validate(jsonData, schema);",
+											"    // console.log(tv4.error);",
+											"    pm.expect(valid).to.be.true;",
+											"});",
+											"",
+											"pm.test(\"Test reply\", function () {",
+											"    var jsonData = pm.response.json();",
+											"    pm.expect(jsonData.page).to.eql(1);",
+											"    pm.expect(jsonData.results.length).to.not.eql(0);",
 											"});"
 										]
 									}
@@ -1116,6 +1607,51 @@
 								"description": "Search for a company by its name."
 							},
 							"response": []
+						},
+						{
+							"name": "1.3 Lookup company",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											"pm.test(\"Status code\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"var schema = JSON.parse(pm.globals.get(\"cvr_company_schema\"));",
+											"",
+											"pm.test('Schema is valid', function() {",
+											"    var jsonData = pm.response.json();",
+											"    valid = tv4.validate(jsonData, schema);",
+											"    // console.log(tv4.error);",
+											"    pm.expect(valid).to.be.true;",
+											"});",
+											"",
+											"pm.test(\"Test reply\", function () {",
+											"    var jsonData = pm.response.json();",
+											"    pm.expect(jsonData.page).to.eql(1);",
+											"    pm.expect(jsonData.results.length).to.eql(1);",
+											"});"
+										]
+									}
+								}
+							],
+							"request": {
+								"url": "https://test.data.gl/cvr/company/1/rest/4785c429-31e7-31c9-ba6a-863c96f38e15",
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "SAML {{dafo_cvr_token}}",
+										"description": "The DAFO token used for authorization."
+									}
+								],
+								"body": {},
+								"description": "Lookup a specific company in the CVR register."
+							},
+							"response": []
 						}
 					],
 					"_postman_isSubFolder": true
@@ -1125,7 +1661,7 @@
 					"description": "",
 					"item": [
 						{
-							"name": "Self documented API",
+							"name": "1.1 Self documented API",
 							"event": [
 								{
 									"listen": "test",
@@ -1162,6 +1698,75 @@
 								"description": "Call the self documentation endpoint."
 							},
 							"response": []
+						},
+						{
+							"name": "1.2 Search for company unit",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											"pm.test(\"Status code\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"/*",
+											"var schema = JSON.parse(pm.globals.get(\"cvr_company_schema\"));",
+											"",
+											"pm.test('Schema is valid', function() {",
+											"    var jsonData = pm.response.json();",
+											"    valid = tv4.validate(jsonData, schema);",
+											"    // console.log(tv4.error);",
+											"    pm.expect(valid).to.be.true;",
+											"});",
+											"*/",
+											"pm.test(\"Test reply\", function () {",
+											"    var jsonData = pm.response.json();",
+											"    pm.expect(jsonData.page).to.eql(1);",
+											"    pm.expect(jsonData.results.length).to.not.eql(0);",
+											"});"
+										]
+									}
+								}
+							],
+							"request": {
+								"url": {
+									"raw": "https://test.data.gl/cvr/companyunit/1/rest/search?hovedbranche=*",
+									"protocol": "https",
+									"host": [
+										"test",
+										"data",
+										"gl"
+									],
+									"path": [
+										"cvr",
+										"companyunit",
+										"1",
+										"rest",
+										"search"
+									],
+									"query": [
+										{
+											"key": "hovedbranche",
+											"value": "*",
+											"equals": true,
+											"description": ""
+										}
+									],
+									"variable": []
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "SAML {{dafo_cvr_token}}",
+										"description": "The DAFO token used for authorization."
+									}
+								],
+								"body": {},
+								"description": "Search for a companyunit by its branche."
+							},
+							"response": []
 						}
 					],
 					"_postman_isSubFolder": true
@@ -1171,7 +1776,7 @@
 					"description": "",
 					"item": [
 						{
-							"name": "Self documented API",
+							"name": "1.1 Self documented API",
 							"event": [
 								{
 									"listen": "test",
@@ -1206,6 +1811,75 @@
 								],
 								"body": {},
 								"description": "Call the self documentation endpoint."
+							},
+							"response": []
+						},
+						{
+							"name": "1.2 Search for company participant",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											"pm.test(\"Status code\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"/*",
+											"var schema = JSON.parse(pm.globals.get(\"cvr_company_schema\"));",
+											"",
+											"pm.test('Schema is valid', function() {",
+											"    var jsonData = pm.response.json();",
+											"    valid = tv4.validate(jsonData, schema);",
+											"    // console.log(tv4.error);",
+											"    pm.expect(valid).to.be.true;",
+											"});",
+											"*/",
+											"pm.test(\"Test reply\", function () {",
+											"    var jsonData = pm.response.json();",
+											"    pm.expect(jsonData.page).to.eql(1);",
+											"    pm.expect(jsonData.results.length).to.not.eql(0);",
+											"});"
+										]
+									}
+								}
+							],
+							"request": {
+								"url": {
+									"raw": "https://test.data.gl/cvr/participant/1/rest/search?kommunekode=*",
+									"protocol": "https",
+									"host": [
+										"test",
+										"data",
+										"gl"
+									],
+									"path": [
+										"cvr",
+										"participant",
+										"1",
+										"rest",
+										"search"
+									],
+									"query": [
+										{
+											"key": "kommunekode",
+											"value": "*",
+											"equals": true,
+											"description": ""
+										}
+									],
+									"variable": []
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "SAML {{dafo_cvr_token}}",
+										"description": "The DAFO token used for authorization."
+									}
+								],
+								"body": {},
+								"description": "Search for a company participant by its name."
 							},
 							"response": []
 						}
