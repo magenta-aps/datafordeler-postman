@@ -164,6 +164,366 @@
 						}
 					],
 					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Rejection",
+					"description": "",
+					"item": [
+						{
+							"name": "Reject - Bad Password",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											"pm.test(\"Status code\", function () {",
+											"    pm.response.to.have.status(401);",
+											"});",
+											"",
+											"pm.test(\"Test login rejection\", function () {",
+											"    pm.expect(pm.response.text()).to.include(\"401 - Unauthorized\");",
+											"    pm.expect(pm.response.text()).to.include(\"Failed to authenticate user\");",
+											"});"
+										]
+									}
+								}
+							],
+							"request": {
+								"url": {
+									"raw": "https://sts.test.data.gl/get_token_passive?username={{dafo_cpr_username}}&password=bad_password",
+									"protocol": "https",
+									"host": [
+										"sts",
+										"test",
+										"data",
+										"gl"
+									],
+									"path": [
+										"get_token_passive"
+									],
+									"query": [
+										{
+											"key": "username",
+											"value": "{{dafo_cpr_username}}",
+											"equals": true,
+											"description": ""
+										},
+										{
+											"key": "password",
+											"value": "bad_password",
+											"equals": true,
+											"description": ""
+										}
+									],
+									"variable": []
+								},
+								"method": "POST",
+								"header": [],
+								"body": {},
+								"description": ""
+							},
+							"response": []
+						},
+						{
+							"name": "Reject - Missing Password",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											"pm.test(\"Status code\", function () {",
+											"    pm.response.to.have.status(401);",
+											"});",
+											"",
+											"pm.test(\"Test login rejection\", function () {",
+											"    pm.expect(pm.response.text()).to.include(\"401 - Unauthorized\");",
+											"    pm.expect(pm.response.text()).to.include(\"No valid credentials given for passive STS\");",
+											"});"
+										]
+									}
+								}
+							],
+							"request": {
+								"url": {
+									"raw": "https://sts.test.data.gl/get_token_passive?username={{dafo_cpr_username}}&password=",
+									"protocol": "https",
+									"host": [
+										"sts",
+										"test",
+										"data",
+										"gl"
+									],
+									"path": [
+										"get_token_passive"
+									],
+									"query": [
+										{
+											"key": "username",
+											"value": "{{dafo_cpr_username}}",
+											"equals": true,
+											"description": ""
+										},
+										{
+											"key": "password",
+											"value": "",
+											"equals": true,
+											"description": ""
+										}
+									],
+									"variable": []
+								},
+								"method": "POST",
+								"header": [],
+								"body": {},
+								"description": ""
+							},
+							"response": []
+						},
+						{
+							"name": "Reject - No Password",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											"pm.test(\"Status code\", function () {",
+											"    pm.response.to.have.status(401);",
+											"});",
+											"",
+											"pm.test(\"Test login rejection\", function () {",
+											"    pm.expect(pm.response.text()).to.include(\"401 - Unauthorized\");",
+											"    pm.expect(pm.response.text()).to.include(\"No valid credentials given for passive STS\");",
+											"});"
+										]
+									}
+								}
+							],
+							"request": {
+								"url": {
+									"raw": "https://sts.test.data.gl/get_token_passive?username={{dafo_cpr_username}}",
+									"protocol": "https",
+									"host": [
+										"sts",
+										"test",
+										"data",
+										"gl"
+									],
+									"path": [
+										"get_token_passive"
+									],
+									"query": [
+										{
+											"key": "username",
+											"value": "{{dafo_cpr_username}}",
+											"equals": true,
+											"description": ""
+										}
+									],
+									"variable": []
+								},
+								"method": "POST",
+								"header": [],
+								"body": {},
+								"description": ""
+							},
+							"response": []
+						},
+						{
+							"name": "Reject - Bad Username",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											"pm.test(\"Status code\", function () {",
+											"    pm.response.to.have.status(401);",
+											"});",
+											"",
+											"pm.test(\"Test login rejection\", function () {",
+											"    pm.expect(pm.response.text()).to.include(\"401 - Unauthorized\");",
+											"    pm.expect(pm.response.text()).to.include(\"Failed to authenticate user\");",
+											"});"
+										]
+									}
+								}
+							],
+							"request": {
+								"url": {
+									"raw": "https://sts.test.data.gl/get_token_passive?username=bad_user&password={{dafo_cpr_password}}",
+									"protocol": "https",
+									"host": [
+										"sts",
+										"test",
+										"data",
+										"gl"
+									],
+									"path": [
+										"get_token_passive"
+									],
+									"query": [
+										{
+											"key": "username",
+											"value": "bad_user",
+											"equals": true,
+											"description": ""
+										},
+										{
+											"key": "password",
+											"value": "{{dafo_cpr_password}}",
+											"equals": true,
+											"description": ""
+										}
+									],
+									"variable": []
+								},
+								"method": "POST",
+								"header": [],
+								"body": {},
+								"description": ""
+							},
+							"response": []
+						},
+						{
+							"name": "Reject - Missing Username",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											"pm.test(\"Status code\", function () {",
+											"    pm.response.to.have.status(401);",
+											"});",
+											"",
+											"pm.test(\"Test login rejection\", function () {",
+											"    pm.expect(pm.response.text()).to.include(\"401 - Unauthorized\");",
+											"    pm.expect(pm.response.text()).to.include(\"No valid credentials given for passive STS\");",
+											"});"
+										]
+									}
+								}
+							],
+							"request": {
+								"url": {
+									"raw": "https://sts.test.data.gl/get_token_passive?username=&password={{dafo_cpr_password}}",
+									"protocol": "https",
+									"host": [
+										"sts",
+										"test",
+										"data",
+										"gl"
+									],
+									"path": [
+										"get_token_passive"
+									],
+									"query": [
+										{
+											"key": "username",
+											"value": "",
+											"equals": true,
+											"description": ""
+										},
+										{
+											"key": "password",
+											"value": "{{dafo_cpr_password}}",
+											"equals": true,
+											"description": ""
+										}
+									],
+									"variable": []
+								},
+								"method": "POST",
+								"header": [],
+								"body": {},
+								"description": ""
+							},
+							"response": []
+						},
+						{
+							"name": "Reject - No Username",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											"pm.test(\"Status code\", function () {",
+											"    pm.response.to.have.status(401);",
+											"});",
+											"",
+											"pm.test(\"Test login rejection\", function () {",
+											"    pm.expect(pm.response.text()).to.include(\"401 - Unauthorized\");",
+											"    pm.expect(pm.response.text()).to.include(\"No valid credentials given for passive STS\");",
+											"});"
+										]
+									}
+								}
+							],
+							"request": {
+								"url": {
+									"raw": "https://sts.test.data.gl/get_token_passive?password={{dafo_cpr_password}}",
+									"protocol": "https",
+									"host": [
+										"sts",
+										"test",
+										"data",
+										"gl"
+									],
+									"path": [
+										"get_token_passive"
+									],
+									"query": [
+										{
+											"key": "password",
+											"value": "{{dafo_cpr_password}}",
+											"equals": true,
+											"description": ""
+										}
+									],
+									"variable": []
+								},
+								"method": "POST",
+								"header": [],
+								"body": {},
+								"description": ""
+							},
+							"response": []
+						},
+						{
+							"name": "Reject - No login information",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											"pm.test(\"Status code\", function () {",
+											"    pm.response.to.have.status(401);",
+											"});",
+											"",
+											"pm.test(\"Test login rejection\", function () {",
+											"    pm.expect(pm.response.text()).to.include(\"401 - Unauthorized\");",
+											"    pm.expect(pm.response.text()).to.include(\"No valid credentials given for passive STS\");",
+											"});"
+										]
+									}
+								}
+							],
+							"request": {
+								"url": "https://sts.test.data.gl/get_token_passive",
+								"method": "POST",
+								"header": [],
+								"body": {},
+								"description": ""
+							},
+							"response": []
+						}
+					],
+					"_postman_isSubFolder": true
 				}
 			]
 		},
@@ -259,6 +619,93 @@
 								],
 								"body": {},
 								"description": "Assert that the CVR SAML Token does not permit access to CPR."
+							},
+							"response": []
+						},
+						{
+							"name": "Invalid token yields no access",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											"pm.test(\"Status code\", function () {",
+											"    pm.response.to.have.status(401);",
+											"});",
+											"",
+											"var schema = {",
+											"  \"error\": {",
+											"    \"type\": \"string\"",
+											"  },",
+											"  \"exception\": {",
+											"    \"type\": \"string\"",
+											"  },",
+											"  \"message\": {",
+											"    \"type\": \"string\"",
+											"  },",
+											"  \"path\": {",
+											"    \"type\": \"string\"",
+											"  },",
+											"  \"status\": {",
+											"    \"type\": \"int\"",
+											"  },",
+											"  \"timestamp\": {",
+											"    \"type\": \"int\"",
+											"  }",
+											"};",
+											"",
+											"pm.test('Schema is valid', function() {",
+											"    var jsonData = pm.response.json();",
+											"    pm.expect(tv4.validate(jsonData, schema)).to.be.true;",
+											"});",
+											"",
+											"pm.test(\"Test reply\", function () {",
+											"    var jsonData = pm.response.json();",
+											"    pm.expect(jsonData.error).to.eql(\"Unauthorized\");",
+											"    pm.expect(jsonData.exception).to.eql(\"dk.magenta.datafordeler.core.exception.InvalidTokenException\");",
+											"    pm.expect(jsonData.message).to.include(\"Could not parse authorization token\");",
+											"});"
+										]
+									}
+								}
+							],
+							"request": {
+								"url": {
+									"raw": "https://test.data.gl/cpr/person/1/rest/search?personnummer=*",
+									"protocol": "https",
+									"host": [
+										"test",
+										"data",
+										"gl"
+									],
+									"path": [
+										"cpr",
+										"person",
+										"1",
+										"rest",
+										"search"
+									],
+									"query": [
+										{
+											"key": "personnummer",
+											"value": "*",
+											"equals": true,
+											"description": ""
+										}
+									],
+									"variable": []
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "SAML CAFEBABE",
+										"description": "The DAFO token used for authorization."
+									}
+								],
+								"body": {},
+								"description": "Assert that an invalid SAML Token does not permit access to CPR."
 							},
 							"response": []
 						},
@@ -1279,6 +1726,93 @@
 							"response": []
 						},
 						{
+							"name": "Invalid token yields no access copy",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											"pm.test(\"Status code\", function () {",
+											"    pm.response.to.have.status(401);",
+											"});",
+											"",
+											"var schema = {",
+											"  \"error\": {",
+											"    \"type\": \"string\"",
+											"  },",
+											"  \"exception\": {",
+											"    \"type\": \"string\"",
+											"  },",
+											"  \"message\": {",
+											"    \"type\": \"string\"",
+											"  },",
+											"  \"path\": {",
+											"    \"type\": \"string\"",
+											"  },",
+											"  \"status\": {",
+											"    \"type\": \"int\"",
+											"  },",
+											"  \"timestamp\": {",
+											"    \"type\": \"int\"",
+											"  }",
+											"};",
+											"",
+											"pm.test('Schema is valid', function() {",
+											"    var jsonData = pm.response.json();",
+											"    pm.expect(tv4.validate(jsonData, schema)).to.be.true;",
+											"});",
+											"",
+											"pm.test(\"Test reply\", function () {",
+											"    var jsonData = pm.response.json();",
+											"    pm.expect(jsonData.error).to.eql(\"Unauthorized\");",
+											"    pm.expect(jsonData.exception).to.eql(\"dk.magenta.datafordeler.core.exception.InvalidTokenException\");",
+											"    pm.expect(jsonData.message).to.include(\"Could not parse authorization token\");",
+											"});"
+										]
+									}
+								}
+							],
+							"request": {
+								"url": {
+									"raw": "https://test.data.gl/cvr/company/1/rest/search?virksomhedsnavn=*",
+									"protocol": "https",
+									"host": [
+										"test",
+										"data",
+										"gl"
+									],
+									"path": [
+										"cvr",
+										"company",
+										"1",
+										"rest",
+										"search"
+									],
+									"query": [
+										{
+											"key": "virksomhedsnavn",
+											"value": "*",
+											"equals": true,
+											"description": ""
+										}
+									],
+									"variable": []
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "SAML CAFEBABE",
+										"description": "The DAFO token used for authorization."
+									}
+								],
+								"body": {},
+								"description": "Assert that an invalid SAML Token does not permit access to CPR."
+							},
+							"response": []
+						},
+						{
 							"name": "No token yields no access",
 							"event": [
 								{
@@ -1846,7 +2380,7 @@
 							],
 							"request": {
 								"url": {
-									"raw": "https://test.data.gl/cvr/participant/1/rest/search?kommunekode=*",
+									"raw": "https://test.data.gl/cvr/participant/1/rest/search?a=b",
 									"protocol": "https",
 									"host": [
 										"test",
@@ -1862,8 +2396,8 @@
 									],
 									"query": [
 										{
-											"key": "kommunekode",
-											"value": "*",
+											"key": "a",
+											"value": "b",
 											"equals": true,
 											"description": ""
 										}
