@@ -8,7 +8,7 @@ Tests the Datafordeler Secure Token Service, and Datafordeler Services using
 Due to limitations in Postman, some tests are handled seperately, namely the 
 client authentification certificate tests for the STS. For more information 
 about how these and handled, and how to run these tests, please refer to 
-[STS-Tessts/README.md](STS-Tests/README.md).
+[STS-tests/README.md](STS-tests/README.md).
 
 Additionally the test of SAML IdP has not been automated, as it is not easily
 unit-tested, but rather require a full-scale integration test. It has however
