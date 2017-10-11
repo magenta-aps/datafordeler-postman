@@ -3,17 +3,17 @@
 	"info": {
 		"name": "DAFO",
 		"_postman_id": "42faf86e-f5ee-d12d-f92f-dc2ee65de879",
-		"description": "",
+		"description": "Test the APIs of the Datafordeler project.",
 		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
 	},
 	"item": [
 		{
 			"name": "1.1 Acquire STS tokens",
-			"description": "",
+			"description": "Test the STS login system.",
 			"item": [
 				{
 					"name": "Acquire CPR",
-					"description": "",
+					"description": "Test acquisition of CPR token.",
 					"item": [
 						{
 							"name": "Acquire CPR token from STS",
@@ -90,7 +90,7 @@
 				},
 				{
 					"name": "Acquire CVR",
-					"description": "",
+					"description": "Test acquisition of CVR token.",
 					"item": [
 						{
 							"name": "Acquire CVR token from STS",
@@ -167,7 +167,7 @@
 				},
 				{
 					"name": "Rejection",
-					"description": "",
+					"description": "Test rejection of bad logins.",
 					"item": [
 						{
 							"name": "Reject - Bad Password",
@@ -221,7 +221,7 @@
 								"method": "POST",
 								"header": [],
 								"body": {},
-								"description": ""
+								"description": "Reject bad password."
 							},
 							"response": []
 						},
@@ -277,7 +277,7 @@
 								"method": "POST",
 								"header": [],
 								"body": {},
-								"description": ""
+								"description": "Reject missing password."
 							},
 							"response": []
 						},
@@ -327,7 +327,7 @@
 								"method": "POST",
 								"header": [],
 								"body": {},
-								"description": ""
+								"description": "Reject no password."
 							},
 							"response": []
 						},
@@ -383,7 +383,7 @@
 								"method": "POST",
 								"header": [],
 								"body": {},
-								"description": ""
+								"description": "Reject bad username."
 							},
 							"response": []
 						},
@@ -439,7 +439,7 @@
 								"method": "POST",
 								"header": [],
 								"body": {},
-								"description": ""
+								"description": "Reject missing username."
 							},
 							"response": []
 						},
@@ -489,7 +489,7 @@
 								"method": "POST",
 								"header": [],
 								"body": {},
-								"description": ""
+								"description": "Reject no username."
 							},
 							"response": []
 						},
@@ -518,7 +518,7 @@
 								"method": "POST",
 								"header": [],
 								"body": {},
-								"description": ""
+								"description": "Reject no login information."
 							},
 							"response": []
 						}
@@ -529,11 +529,11 @@
 		},
 		{
 			"name": "1.2 CPR",
-			"description": "",
+			"description": "Test for the CPR service plugin.",
 			"item": [
 				{
 					"name": "Authentication",
-					"description": "",
+					"description": "Test authentication.",
 					"item": [
 						{
 							"name": "CVR token yields no access",
@@ -585,7 +585,7 @@
 							],
 							"request": {
 								"url": {
-									"raw": "https://test.data.gl/cpr/person/1/rest/search?personnummer=*",
+									"raw": "https://test.data.gl/cpr/person/1/rest/search?a=b",
 									"protocol": "https",
 									"host": [
 										"test",
@@ -601,8 +601,8 @@
 									],
 									"query": [
 										{
-											"key": "personnummer",
-											"value": "*",
+											"key": "a",
+											"value": "b",
 											"equals": true,
 											"description": ""
 										}
@@ -672,7 +672,7 @@
 							],
 							"request": {
 								"url": {
-									"raw": "https://test.data.gl/cpr/person/1/rest/search?personnummer=*",
+									"raw": "https://test.data.gl/cpr/person/1/rest/search?a=b",
 									"protocol": "https",
 									"host": [
 										"test",
@@ -688,8 +688,8 @@
 									],
 									"query": [
 										{
-											"key": "personnummer",
-											"value": "*",
+											"key": "a",
+											"value": "b",
 											"equals": true,
 											"description": ""
 										}
@@ -759,7 +759,7 @@
 							],
 							"request": {
 								"url": {
-									"raw": "https://test.data.gl/cpr/person/1/rest/search?personnummer=*",
+									"raw": "https://test.data.gl/cpr/person/1/rest/search?a=b",
 									"protocol": "https",
 									"host": [
 										"test",
@@ -775,8 +775,8 @@
 									],
 									"query": [
 										{
-											"key": "personnummer",
-											"value": "*",
+											"key": "a",
+											"value": "b",
 											"equals": true,
 											"description": ""
 										}
@@ -795,7 +795,7 @@
 				},
 				{
 					"name": "Person",
-					"description": "\n",
+					"description": "Test the person endpoint.",
 					"item": [
 						{
 							"name": "1.1 Self documented API",
@@ -1000,6 +1000,7 @@
 											"    var jsonData = pm.response.json();",
 											"    pm.expect(jsonData.page).to.eql(1);",
 											"    pm.expect(jsonData.results.length).to.not.eql(0);",
+											"    pm.globals.set(\"person_uuid\", jsonData.results[0].UUID);",
 											"});"
 										]
 									}
@@ -1007,7 +1008,7 @@
 							],
 							"request": {
 								"url": {
-									"raw": "https://test.data.gl/cpr/person/1/rest/search?personnummer=*",
+									"raw": "https://test.data.gl/cpr/person/1/rest/search?a=b",
 									"protocol": "https",
 									"host": [
 										"test",
@@ -1023,8 +1024,8 @@
 									],
 									"query": [
 										{
-											"key": "personnummer",
-											"value": "*",
+											"key": "a",
+											"value": "b",
 											"equals": true,
 											"description": ""
 										}
@@ -1070,13 +1071,15 @@
 											"    var jsonData = pm.response.json();",
 											"    pm.expect(jsonData.page).to.eql(1);",
 											"    pm.expect(jsonData.results.length).to.eql(1);",
-											"});"
+											"});",
+											"",
+											"pm.globals.unset(\"person_uuid\");"
 										]
 									}
 								}
 							],
 							"request": {
-								"url": "https://test.data.gl/cpr/person/1/rest/06a3c66f-e77c-35fc-b2f4-ac91129dc5e0",
+								"url": "https://test.data.gl/cpr/person/1/rest/{{person_uuid}}",
 								"method": "GET",
 								"header": [
 									{
@@ -1095,7 +1098,7 @@
 				},
 				{
 					"name": "Road",
-					"description": "",
+					"description": "Test the road endpoint.",
 					"item": [
 						{
 							"name": "1.1 Self documented API",
@@ -1273,6 +1276,7 @@
 											"    var jsonData = pm.response.json();",
 											"    pm.expect(jsonData.page).to.eql(1);",
 											"    pm.expect(jsonData.results.length).to.not.eql(0);",
+											"    pm.globals.set(\"person_uuid\", jsonData.results[0].UUID);",
 											"});"
 										]
 									}
@@ -1280,7 +1284,7 @@
 							],
 							"request": {
 								"url": {
-									"raw": "https://test.data.gl/cpr/road/1/rest/search?vejnavn=*",
+									"raw": "https://test.data.gl/cpr/road/1/rest/search?a=b",
 									"protocol": "https",
 									"host": [
 										"test",
@@ -1296,8 +1300,8 @@
 									],
 									"query": [
 										{
-											"key": "vejnavn",
-											"value": "*",
+											"key": "a",
+											"value": "b",
 											"equals": true,
 											"description": ""
 										}
@@ -1342,13 +1346,15 @@
 											"    var jsonData = pm.response.json();",
 											"    pm.expect(jsonData.page).to.eql(1);",
 											"    pm.expect(jsonData.results.length).to.eql(1);",
-											"});"
+											"});",
+											"",
+											"pm.globals.unset(\"road_uuid\");"
 										]
 									}
 								}
 							],
 							"request": {
-								"url": "https://test.data.gl/cpr/road/1/rest/33052bb6-52ec-3270-9988-0cc0093bb013",
+								"url": "https://test.data.gl/cpr/road/1/rest/{{road_uuid}}",
 								"method": "GET",
 								"header": [
 									{
@@ -1367,7 +1373,7 @@
 				},
 				{
 					"name": "Residence",
-					"description": "",
+					"description": "Test the residence endpoint.",
 					"item": [
 						{
 							"name": "1.1 Self documented API",
@@ -1536,6 +1542,7 @@
 											"    var jsonData = pm.response.json();",
 											"    pm.expect(jsonData.page).to.eql(1);",
 											"    pm.expect(jsonData.results.length).to.not.eql(0);",
+											"    pm.globals.set(\"residence_uuid\", jsonData.results[0].UUID);",
 											"});"
 										]
 									}
@@ -1605,13 +1612,15 @@
 											"    var jsonData = pm.response.json();",
 											"    pm.expect(jsonData.page).to.eql(1);",
 											"    pm.expect(jsonData.results.length).to.eql(1);",
-											"});"
+											"});",
+											"",
+											"pm.globals.unset(\"residence_uuid\");"
 										]
 									}
 								}
 							],
 							"request": {
-								"url": "https://test.data.gl/cpr/residence/1/rest/377e2d63-79e7-3f4e-940f-81ca0684a88a",
+								"url": "https://test.data.gl/cpr/residence/1/rest/{{residence_uuid}}",
 								"method": "GET",
 								"header": [
 									{
@@ -1632,11 +1641,11 @@
 		},
 		{
 			"name": "1.3 CVR",
-			"description": "",
+			"description": "Test for the CVR service plugin.",
 			"item": [
 				{
 					"name": "Authentication",
-					"description": "",
+					"description": "Test authentication.",
 					"item": [
 						{
 							"name": "CPR token yields no access",
@@ -1688,7 +1697,7 @@
 							],
 							"request": {
 								"url": {
-									"raw": "https://test.data.gl/cvr/company/1/rest/search?virksomhedsnavn=*",
+									"raw": "https://test.data.gl/cvr/company/1/rest/search?a=b",
 									"protocol": "https",
 									"host": [
 										"test",
@@ -1704,8 +1713,8 @@
 									],
 									"query": [
 										{
-											"key": "virksomhedsnavn",
-											"value": "*",
+											"key": "a",
+											"value": "b",
 											"equals": true,
 											"description": ""
 										}
@@ -1775,7 +1784,7 @@
 							],
 							"request": {
 								"url": {
-									"raw": "https://test.data.gl/cvr/company/1/rest/search?virksomhedsnavn=*",
+									"raw": "https://test.data.gl/cvr/company/1/rest/search?a=b",
 									"protocol": "https",
 									"host": [
 										"test",
@@ -1791,8 +1800,8 @@
 									],
 									"query": [
 										{
-											"key": "virksomhedsnavn",
-											"value": "*",
+											"key": "a",
+											"value": "b",
 											"equals": true,
 											"description": ""
 										}
@@ -1862,7 +1871,7 @@
 							],
 							"request": {
 								"url": {
-									"raw": "https://test.data.gl/cvr/company/1/rest/search?virksomhedsnavn=*",
+									"raw": "https://test.data.gl/cvr/company/1/rest/search?a=b",
 									"protocol": "https",
 									"host": [
 										"test",
@@ -1878,8 +1887,8 @@
 									],
 									"query": [
 										{
-											"key": "virksomhedsnavn",
-											"value": "*",
+											"key": "a",
+											"value": "b",
 											"equals": true,
 											"description": ""
 										}
@@ -1898,7 +1907,7 @@
 				},
 				{
 					"name": "Company",
-					"description": "",
+					"description": "Test the company endpoint.",
 					"item": [
 						{
 							"name": "1.1 Self documented API",
@@ -2098,6 +2107,7 @@
 											"    var jsonData = pm.response.json();",
 											"    pm.expect(jsonData.page).to.eql(1);",
 											"    pm.expect(jsonData.results.length).to.not.eql(0);",
+											"    pm.globals.set(\"company_uuid\", jsonData.results[0].UUID);",
 											"});"
 										]
 									}
@@ -2105,7 +2115,7 @@
 							],
 							"request": {
 								"url": {
-									"raw": "https://test.data.gl/cvr/company/1/rest/search?virksomhedsnavn=*",
+									"raw": "https://test.data.gl/cvr/company/1/rest/search?a=b",
 									"protocol": "https",
 									"host": [
 										"test",
@@ -2121,8 +2131,8 @@
 									],
 									"query": [
 										{
-											"key": "virksomhedsnavn",
-											"value": "*",
+											"key": "a",
+											"value": "b",
 											"equals": true,
 											"description": ""
 										}
@@ -2167,13 +2177,15 @@
 											"    var jsonData = pm.response.json();",
 											"    pm.expect(jsonData.page).to.eql(1);",
 											"    pm.expect(jsonData.results.length).to.eql(1);",
-											"});"
+											"});",
+											"",
+											"pm.globals.unset(\"company_uuid\");"
 										]
 									}
 								}
 							],
 							"request": {
-								"url": "https://test.data.gl/cvr/company/1/rest/4785c429-31e7-31c9-ba6a-863c96f38e15",
+								"url": "https://test.data.gl/cvr/company/1/rest/{{company_uuid}}",
 								"method": "GET",
 								"header": [
 									{
@@ -2192,7 +2204,7 @@
 				},
 				{
 					"name": "CompanyUnit",
-					"description": "",
+					"description": "Test the company unit endpoint.",
 					"item": [
 						{
 							"name": "1.1 Self documented API",
@@ -2214,6 +2226,47 @@
 											"pm.test(\"Status code is 200\", function () {",
 											"    pm.response.to.have.status(200);",
 											"});"
+										]
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											"var schema = {",
+											"    \"type\": \"object\",",
+											"    \"additionalProperties\": false,",
+											"    \"minProperties\": 8,",
+											"    \"properties\": {",
+											"        \"path\": {",
+											"            \"type\": \"string\"",
+											"        },",
+											"        \"terms\": {",
+											"            \"type\": \"string\"",
+											"        },",
+											"        \"requestTimestamp\": {",
+											"            \"type\": \"string\"",
+											"        },",
+											"        \"responseTimestamp\": {",
+											"            \"type\": \"string\"",
+											"        },",
+											"        \"username\": {",
+											"            \"type\": \"string\"",
+											"        },",
+											"        \"page\": {",
+											"            \"type\": \"number\"",
+											"        },",
+											"        \"pageSize\": {",
+											"            \"type\": \"number\"",
+											"        },",
+											"        \"results\": {",
+											"            \"type\": \"array\",",
+											"        }",
+											"    }",
+											"};",
+											"",
+											"pm.globals.set(\"cvr_company_unit_schema\", JSON.stringify(schema));"
 										]
 									}
 								}
@@ -2244,8 +2297,8 @@
 											"pm.test(\"Status code\", function () {",
 											"    pm.response.to.have.status(200);",
 											"});",
-											"/*",
-											"var schema = JSON.parse(pm.globals.get(\"cvr_company_schema\"));",
+											"",
+											"var schema = JSON.parse(pm.globals.get(\"cvr_company_unit_schema\"));",
 											"",
 											"pm.test('Schema is valid', function() {",
 											"    var jsonData = pm.response.json();",
@@ -2253,11 +2306,12 @@
 											"    // console.log(tv4.error);",
 											"    pm.expect(valid).to.be.true;",
 											"});",
-											"*/",
+											"",
 											"pm.test(\"Test reply\", function () {",
 											"    var jsonData = pm.response.json();",
 											"    pm.expect(jsonData.page).to.eql(1);",
 											"    pm.expect(jsonData.results.length).to.not.eql(0);",
+											"    pm.globals.set(\"company_unit_uuid\", jsonData.results[0].UUID);",
 											"});"
 										]
 									}
@@ -2265,7 +2319,7 @@
 							],
 							"request": {
 								"url": {
-									"raw": "https://test.data.gl/cvr/companyunit/1/rest/search?hovedbranche=*",
+									"raw": "https://test.data.gl/cvr/companyunit/1/rest/search?a=b",
 									"protocol": "https",
 									"host": [
 										"test",
@@ -2281,8 +2335,8 @@
 									],
 									"query": [
 										{
-											"key": "hovedbranche",
-											"value": "*",
+											"key": "a",
+											"value": "b",
 											"equals": true,
 											"description": ""
 										}
@@ -2301,13 +2355,60 @@
 								"description": "Search for a companyunit by its branche."
 							},
 							"response": []
+						},
+						{
+							"name": "1.3 Lookup company unit",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											"pm.test(\"Status code\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"var schema = JSON.parse(pm.globals.get(\"cvr_company_unit_schema\"));",
+											"",
+											"pm.test('Schema is valid', function() {",
+											"    var jsonData = pm.response.json();",
+											"    valid = tv4.validate(jsonData, schema);",
+											"    // console.log(tv4.error);",
+											"    pm.expect(valid).to.be.true;",
+											"});",
+											"",
+											"pm.test(\"Test reply\", function () {",
+											"    var jsonData = pm.response.json();",
+											"    pm.expect(jsonData.page).to.eql(1);",
+											"    pm.expect(jsonData.results.length).to.eql(1);",
+											"});",
+											"",
+											"pm.globals.unset(\"company_unit_uuid\");"
+										]
+									}
+								}
+							],
+							"request": {
+								"url": "https://test.data.gl/cvr/companyunit/1/rest/{{company_unit_uuid}}",
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "SAML {{dafo_cvr_token}}",
+										"description": "The DAFO token used for authorization."
+									}
+								],
+								"body": {},
+								"description": "Lookup a specific company unit in the CVR register."
+							},
+							"response": []
 						}
 					],
 					"_postman_isSubFolder": true
 				},
 				{
 					"name": "Participant",
-					"description": "",
+					"description": "Test the company participant endpoint.",
 					"item": [
 						{
 							"name": "1.1 Self documented API",
@@ -2329,6 +2430,47 @@
 											"pm.test(\"Status code is 200\", function () {",
 											"    pm.response.to.have.status(200);",
 											"});"
+										]
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											"var schema = {",
+											"    \"type\": \"object\",",
+											"    \"additionalProperties\": false,",
+											"    \"minProperties\": 8,",
+											"    \"properties\": {",
+											"        \"path\": {",
+											"            \"type\": \"string\"",
+											"        },",
+											"        \"terms\": {",
+											"            \"type\": \"string\"",
+											"        },",
+											"        \"requestTimestamp\": {",
+											"            \"type\": \"string\"",
+											"        },",
+											"        \"responseTimestamp\": {",
+											"            \"type\": \"string\"",
+											"        },",
+											"        \"username\": {",
+											"            \"type\": \"string\"",
+											"        },",
+											"        \"page\": {",
+											"            \"type\": \"number\"",
+											"        },",
+											"        \"pageSize\": {",
+											"            \"type\": \"number\"",
+											"        },",
+											"        \"results\": {",
+											"            \"type\": \"array\",",
+											"        }",
+											"    }",
+											"};",
+											"",
+											"pm.globals.set(\"cvr_participant_schema\", JSON.stringify(schema));"
 										]
 									}
 								}
@@ -2359,8 +2501,8 @@
 											"pm.test(\"Status code\", function () {",
 											"    pm.response.to.have.status(200);",
 											"});",
-											"/*",
-											"var schema = JSON.parse(pm.globals.get(\"cvr_company_schema\"));",
+											"",
+											"var schema = JSON.parse(pm.globals.get(\"cvr_participant_schema\"));",
 											"",
 											"pm.test('Schema is valid', function() {",
 											"    var jsonData = pm.response.json();",
@@ -2368,11 +2510,12 @@
 											"    // console.log(tv4.error);",
 											"    pm.expect(valid).to.be.true;",
 											"});",
-											"*/",
+											"",
 											"pm.test(\"Test reply\", function () {",
 											"    var jsonData = pm.response.json();",
 											"    pm.expect(jsonData.page).to.eql(1);",
 											"    pm.expect(jsonData.results.length).to.not.eql(0);",
+											"    pm.globals.set(\"participant_uuid\", jsonData.results[0].UUID);",
 											"});"
 										]
 									}
@@ -2416,6 +2559,53 @@
 								"description": "Search for a company participant by its name."
 							},
 							"response": []
+						},
+						{
+							"name": "1.3 Lookup company participant",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											"pm.test(\"Status code\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"var schema = JSON.parse(pm.globals.get(\"cvr_participant_schema\"));",
+											"",
+											"pm.test('Schema is valid', function() {",
+											"    var jsonData = pm.response.json();",
+											"    valid = tv4.validate(jsonData, schema);",
+											"    // console.log(tv4.error);",
+											"    pm.expect(valid).to.be.true;",
+											"});",
+											"",
+											"pm.test(\"Test reply\", function () {",
+											"    var jsonData = pm.response.json();",
+											"    pm.expect(jsonData.page).to.eql(1);",
+											"    pm.expect(jsonData.results.length).to.eql(1);",
+											"});",
+											"",
+											"pm.globals.unset(\"participant_uuid\");"
+										]
+									}
+								}
+							],
+							"request": {
+								"url": "https://test.data.gl/cvr/participant/1/rest/{{participant_uuid}}",
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "SAML {{dafo_cvr_token}}",
+										"description": "The DAFO token used for authorization."
+									}
+								],
+								"body": {},
+								"description": "Lookup a specific company participant in the CVR register."
+							},
+							"response": []
 						}
 					],
 					"_postman_isSubFolder": true
@@ -2424,14 +2614,14 @@
 		},
 		{
 			"name": "1.4 Gladdrreg",
-			"description": "",
+			"description": "Test for the greenland address register service plugin.",
 			"item": [
 				{
 					"name": "Address",
-					"description": "",
+					"description": "Test the address endpoint.",
 					"item": [
 						{
-							"name": "Self documented API",
+							"name": "1.1 Self documented API",
 							"event": [
 								{
 									"listen": "test",
@@ -2452,6 +2642,47 @@
 											"});"
 										]
 									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											"var schema = {",
+											"    \"type\": \"object\",",
+											"    \"additionalProperties\": false,",
+											"    \"minProperties\": 8,",
+											"    \"properties\": {",
+											"        \"path\": {",
+											"            \"type\": \"string\"",
+											"        },",
+											"        \"terms\": {",
+											"            \"type\": \"string\"",
+											"        },",
+											"        \"requestTimestamp\": {",
+											"            \"type\": \"string\"",
+											"        },",
+											"        \"responseTimestamp\": {",
+											"            \"type\": \"string\"",
+											"        },",
+											"        \"username\": {",
+											"            \"type\": \"string\"",
+											"        },",
+											"        \"page\": {",
+											"            \"type\": \"number\"",
+											"        },",
+											"        \"pageSize\": {",
+											"            \"type\": \"number\"",
+											"        },",
+											"        \"results\": {",
+											"            \"type\": \"array\",",
+											"        }",
+											"    }",
+											"};",
+											"",
+											"pm.globals.set(\"gladdrreg_address_schema\", JSON.stringify(schema));"
+										]
+									}
 								}
 							],
 							"request": {
@@ -2464,7 +2695,7 @@
 							"response": []
 						},
 						{
-							"name": "Search for an address",
+							"name": "1.2 Search for an address",
 							"event": [
 								{
 									"listen": "test",
@@ -2475,42 +2706,20 @@
 											"    pm.response.to.have.status(200);",
 											"});",
 											"",
-											"var schema = {",
-											"  \"path\": {",
-											"    \"type\": \"string\"",
-											"  },",
-											"  \"terms\": {",
-											"    \"type\": \"string\"",
-											"  },",
-											"  \"requestTimestamp\": {",
-											"    \"type\": \"string\"",
-											"  },",
-											"  \"responseTimestamp\": {",
-											"    \"type\": \"string\"",
-											"  },",
-											"  \"username\": {",
-											"    \"type\": \"string\"",
-											"  },",
-											"  \"page\": {",
-											"    \"type\": \"int\"",
-											"  },",
-											"  \"pageSize\": {",
-											"    \"type\": \"int\"",
-											"  },",
-											"  \"results\": {",
-											"    \"type\": \"array\"",
-											"  }",
-											"};",
+											"var schema = JSON.parse(pm.globals.get(\"gladdrreg_address_schema\"));",
 											"",
 											"pm.test('Schema is valid', function() {",
 											"    var jsonData = pm.response.json();",
-											"    pm.expect(tv4.validate(jsonData, schema)).to.be.true;",
+											"    valid = tv4.validate(jsonData, schema);",
+											"    // console.log(tv4.error);",
+											"    pm.expect(valid).to.be.true;",
 											"});",
 											"",
 											"pm.test(\"Test reply\", function () {",
 											"    var jsonData = pm.response.json();",
 											"    pm.expect(jsonData.page).to.eql(1);",
 											"    pm.expect(jsonData.results.length).to.not.eql(0);",
+											"    pm.globals.set(\"gladdrreg_address_uuid\", jsonData.results[0].UUID);",
 											"});"
 										]
 									}
@@ -2518,7 +2727,7 @@
 							],
 							"request": {
 								"url": {
-									"raw": "https://test.data.gl/gladdrreg/address/1/rest/search?active=true",
+									"raw": "https://test.data.gl/gladdrreg/address/1/rest/search?a=b",
 									"protocol": "https",
 									"host": [
 										"test",
@@ -2534,8 +2743,8 @@
 									],
 									"query": [
 										{
-											"key": "active",
-											"value": "true",
+											"key": "a",
+											"value": "b",
 											"equals": true,
 											"description": ""
 										}
@@ -2548,16 +2757,57 @@
 								"description": "Search for an address in the greenland address register."
 							},
 							"response": []
+						},
+						{
+							"name": "1.3 Lookup address",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											"pm.test(\"Status code\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"var schema = JSON.parse(pm.globals.get(\"gladdrreg_address_schema\"));",
+											"",
+											"pm.test('Schema is valid', function() {",
+											"    var jsonData = pm.response.json();",
+											"    valid = tv4.validate(jsonData, schema);",
+											"    // console.log(tv4.error);",
+											"    pm.expect(valid).to.be.true;",
+											"});",
+											"",
+											"pm.test(\"Test reply\", function () {",
+											"    var jsonData = pm.response.json();",
+											"    pm.expect(jsonData.page).to.eql(1);",
+											"    pm.expect(jsonData.results.length).to.eql(1);",
+											"});",
+											"",
+											"pm.globals.unset(\"gladdrreg_address_uuid\");"
+										]
+									}
+								}
+							],
+							"request": {
+								"url": "https://test.data.gl/gladdrreg/address/1/rest/{{gladdrreg_address_uuid}}",
+								"method": "GET",
+								"header": [],
+								"body": {},
+								"description": "Lookup a specific address in the greenland address register."
+							},
+							"response": []
 						}
 					],
 					"_postman_isSubFolder": true
 				},
 				{
 					"name": "BNumber",
-					"description": "",
+					"description": "Test the bnumber endpoint.",
 					"item": [
 						{
-							"name": "Self documented API",
+							"name": "1.1 Self documented API",
 							"event": [
 								{
 									"listen": "test",
@@ -2576,6 +2826,47 @@
 											"pm.test(\"Status code is 200\", function () {",
 											"    pm.response.to.have.status(200);",
 											"});"
+										]
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											"var schema = {",
+											"    \"type\": \"object\",",
+											"    \"additionalProperties\": false,",
+											"    \"minProperties\": 8,",
+											"    \"properties\": {",
+											"        \"path\": {",
+											"            \"type\": \"string\"",
+											"        },",
+											"        \"terms\": {",
+											"            \"type\": \"string\"",
+											"        },",
+											"        \"requestTimestamp\": {",
+											"            \"type\": \"string\"",
+											"        },",
+											"        \"responseTimestamp\": {",
+											"            \"type\": \"string\"",
+											"        },",
+											"        \"username\": {",
+											"            \"type\": \"string\"",
+											"        },",
+											"        \"page\": {",
+											"            \"type\": \"number\"",
+											"        },",
+											"        \"pageSize\": {",
+											"            \"type\": \"number\"",
+											"        },",
+											"        \"results\": {",
+											"            \"type\": \"array\",",
+											"        }",
+											"    }",
+											"};",
+											"",
+											"pm.globals.set(\"gladdrreg_bnumber_schema\", JSON.stringify(schema));"
 										]
 									}
 								}
@@ -2588,16 +2879,121 @@
 								"description": "Call the self documentation endpoint."
 							},
 							"response": []
+						},
+						{
+							"name": "1.2 Search for an bnumber",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											"pm.test(\"Status code\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"var schema = JSON.parse(pm.globals.get(\"gladdrreg_bnumber_schema\"));",
+											"",
+											"pm.test('Schema is valid', function() {",
+											"    var jsonData = pm.response.json();",
+											"    valid = tv4.validate(jsonData, schema);",
+											"    // console.log(tv4.error);",
+											"    pm.expect(valid).to.be.true;",
+											"});",
+											"",
+											"pm.test(\"Test reply\", function () {",
+											"    var jsonData = pm.response.json();",
+											"    pm.expect(jsonData.page).to.eql(1);",
+											"    pm.expect(jsonData.results.length).to.not.eql(0);",
+											"    pm.globals.set(\"gladdrreg_bnumber_uuid\", jsonData.results[0].UUID);",
+											"});"
+										]
+									}
+								}
+							],
+							"request": {
+								"url": {
+									"raw": "https://test.data.gl/gladdrreg/bnumber/1/rest/search?a=b",
+									"protocol": "https",
+									"host": [
+										"test",
+										"data",
+										"gl"
+									],
+									"path": [
+										"gladdrreg",
+										"bnumber",
+										"1",
+										"rest",
+										"search"
+									],
+									"query": [
+										{
+											"key": "a",
+											"value": "b",
+											"equals": true,
+											"description": ""
+										}
+									],
+									"variable": []
+								},
+								"method": "GET",
+								"header": [],
+								"body": {},
+								"description": "Search for an bnumber in the greenland address register."
+							},
+							"response": []
+						},
+						{
+							"name": "1.3 Lookup bnumber",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											"pm.test(\"Status code\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"var schema = JSON.parse(pm.globals.get(\"gladdrreg_bnumber_schema\"));",
+											"",
+											"pm.test('Schema is valid', function() {",
+											"    var jsonData = pm.response.json();",
+											"    valid = tv4.validate(jsonData, schema);",
+											"    // console.log(tv4.error);",
+											"    pm.expect(valid).to.be.true;",
+											"});",
+											"",
+											"pm.test(\"Test reply\", function () {",
+											"    var jsonData = pm.response.json();",
+											"    pm.expect(jsonData.page).to.eql(1);",
+											"    pm.expect(jsonData.results.length).to.eql(1);",
+											"});",
+											"",
+											"pm.globals.unset(\"gladdrreg_bnumber_uuid\");"
+										]
+									}
+								}
+							],
+							"request": {
+								"url": "https://test.data.gl/gladdrreg/bnumber/1/rest/{{gladdrreg_bnumber_uuid}}",
+								"method": "GET",
+								"header": [],
+								"body": {},
+								"description": "Lookup a specific bnumber in the greenland address register."
+							},
+							"response": []
 						}
 					],
 					"_postman_isSubFolder": true
 				},
 				{
 					"name": "District",
-					"description": "",
+					"description": "Test the district endpoint.",
 					"item": [
 						{
-							"name": "Self documented API",
+							"name": "1.1 Self documented API",
 							"event": [
 								{
 									"listen": "test",
@@ -2616,6 +3012,47 @@
 											"pm.test(\"Status code is 200\", function () {",
 											"    pm.response.to.have.status(200);",
 											"});"
+										]
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											"var schema = {",
+											"    \"type\": \"object\",",
+											"    \"additionalProperties\": false,",
+											"    \"minProperties\": 8,",
+											"    \"properties\": {",
+											"        \"path\": {",
+											"            \"type\": \"string\"",
+											"        },",
+											"        \"terms\": {",
+											"            \"type\": \"string\"",
+											"        },",
+											"        \"requestTimestamp\": {",
+											"            \"type\": \"string\"",
+											"        },",
+											"        \"responseTimestamp\": {",
+											"            \"type\": \"string\"",
+											"        },",
+											"        \"username\": {",
+											"            \"type\": \"string\"",
+											"        },",
+											"        \"page\": {",
+											"            \"type\": \"number\"",
+											"        },",
+											"        \"pageSize\": {",
+											"            \"type\": \"number\"",
+											"        },",
+											"        \"results\": {",
+											"            \"type\": \"array\",",
+											"        }",
+											"    }",
+											"};",
+											"",
+											"pm.globals.set(\"gladdrreg_district_schema\", JSON.stringify(schema));"
 										]
 									}
 								}
@@ -2628,16 +3065,121 @@
 								"description": "Call the self documentation endpoint."
 							},
 							"response": []
+						},
+						{
+							"name": "1.2 Search for an district",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											"pm.test(\"Status code\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"var schema = JSON.parse(pm.globals.get(\"gladdrreg_district_schema\"));",
+											"",
+											"pm.test('Schema is valid', function() {",
+											"    var jsonData = pm.response.json();",
+											"    valid = tv4.validate(jsonData, schema);",
+											"    // console.log(tv4.error);",
+											"    pm.expect(valid).to.be.true;",
+											"});",
+											"",
+											"pm.test(\"Test reply\", function () {",
+											"    var jsonData = pm.response.json();",
+											"    pm.expect(jsonData.page).to.eql(1);",
+											"    pm.expect(jsonData.results.length).to.not.eql(0);",
+											"    pm.globals.set(\"gladdrreg_district_uuid\", jsonData.results[0].UUID);",
+											"});"
+										]
+									}
+								}
+							],
+							"request": {
+								"url": {
+									"raw": "https://test.data.gl/gladdrreg/bnumber/1/rest/search?a=b",
+									"protocol": "https",
+									"host": [
+										"test",
+										"data",
+										"gl"
+									],
+									"path": [
+										"gladdrreg",
+										"bnumber",
+										"1",
+										"rest",
+										"search"
+									],
+									"query": [
+										{
+											"key": "a",
+											"value": "b",
+											"equals": true,
+											"description": ""
+										}
+									],
+									"variable": []
+								},
+								"method": "GET",
+								"header": [],
+								"body": {},
+								"description": "Search for an district in the greenland address register."
+							},
+							"response": []
+						},
+						{
+							"name": "1.3 Lookup district",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											"pm.test(\"Status code\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"var schema = JSON.parse(pm.globals.get(\"gladdrreg_district_schema\"));",
+											"",
+											"pm.test('Schema is valid', function() {",
+											"    var jsonData = pm.response.json();",
+											"    valid = tv4.validate(jsonData, schema);",
+											"    // console.log(tv4.error);",
+											"    pm.expect(valid).to.be.true;",
+											"});",
+											"",
+											"pm.test(\"Test reply\", function () {",
+											"    var jsonData = pm.response.json();",
+											"    pm.expect(jsonData.page).to.eql(1);",
+											"    pm.expect(jsonData.results.length).to.eql(1);",
+											"});",
+											"",
+											"pm.globals.unset(\"gladdrreg_district_uuid\");"
+										]
+									}
+								}
+							],
+							"request": {
+								"url": "https://test.data.gl/gladdrreg/bnumber/1/rest/{{gladdrreg_district_uuid}}",
+								"method": "GET",
+								"header": [],
+								"body": {},
+								"description": "Lookup a specific district in the greenland address register."
+							},
+							"response": []
 						}
 					],
 					"_postman_isSubFolder": true
 				},
 				{
 					"name": "Locality",
-					"description": "",
+					"description": "Test the locality endpoint.",
 					"item": [
 						{
-							"name": "Self documented API",
+							"name": "1.1 Self documented API",
 							"event": [
 								{
 									"listen": "test",
@@ -2656,6 +3198,47 @@
 											"pm.test(\"Status code is 200\", function () {",
 											"    pm.response.to.have.status(200);",
 											"});"
+										]
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											"var schema = {",
+											"    \"type\": \"object\",",
+											"    \"additionalProperties\": false,",
+											"    \"minProperties\": 8,",
+											"    \"properties\": {",
+											"        \"path\": {",
+											"            \"type\": \"string\"",
+											"        },",
+											"        \"terms\": {",
+											"            \"type\": \"string\"",
+											"        },",
+											"        \"requestTimestamp\": {",
+											"            \"type\": \"string\"",
+											"        },",
+											"        \"responseTimestamp\": {",
+											"            \"type\": \"string\"",
+											"        },",
+											"        \"username\": {",
+											"            \"type\": \"string\"",
+											"        },",
+											"        \"page\": {",
+											"            \"type\": \"number\"",
+											"        },",
+											"        \"pageSize\": {",
+											"            \"type\": \"number\"",
+											"        },",
+											"        \"results\": {",
+											"            \"type\": \"array\",",
+											"        }",
+											"    }",
+											"};",
+											"",
+											"pm.globals.set(\"gladdrreg_locality_schema\", JSON.stringify(schema));"
 										]
 									}
 								}
@@ -2668,16 +3251,121 @@
 								"description": "Call the self documentation endpoint."
 							},
 							"response": []
+						},
+						{
+							"name": "1.2 Search for an locality",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											"pm.test(\"Status code\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"var schema = JSON.parse(pm.globals.get(\"gladdrreg_locality_schema\"));",
+											"",
+											"pm.test('Schema is valid', function() {",
+											"    var jsonData = pm.response.json();",
+											"    valid = tv4.validate(jsonData, schema);",
+											"    // console.log(tv4.error);",
+											"    pm.expect(valid).to.be.true;",
+											"});",
+											"",
+											"pm.test(\"Test reply\", function () {",
+											"    var jsonData = pm.response.json();",
+											"    pm.expect(jsonData.page).to.eql(1);",
+											"    pm.expect(jsonData.results.length).to.not.eql(0);",
+											"    pm.globals.set(\"gladdrreg_locality_uuid\", jsonData.results[0].UUID);",
+											"});"
+										]
+									}
+								}
+							],
+							"request": {
+								"url": {
+									"raw": "https://test.data.gl/gladdrreg/locality/1/rest/search?a=b",
+									"protocol": "https",
+									"host": [
+										"test",
+										"data",
+										"gl"
+									],
+									"path": [
+										"gladdrreg",
+										"locality",
+										"1",
+										"rest",
+										"search"
+									],
+									"query": [
+										{
+											"key": "a",
+											"value": "b",
+											"equals": true,
+											"description": ""
+										}
+									],
+									"variable": []
+								},
+								"method": "GET",
+								"header": [],
+								"body": {},
+								"description": "Search for an locality in the greenland address register."
+							},
+							"response": []
+						},
+						{
+							"name": "1.3 Lookup locality",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											"pm.test(\"Status code\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"var schema = JSON.parse(pm.globals.get(\"gladdrreg_locality_schema\"));",
+											"",
+											"pm.test('Schema is valid', function() {",
+											"    var jsonData = pm.response.json();",
+											"    valid = tv4.validate(jsonData, schema);",
+											"    // console.log(tv4.error);",
+											"    pm.expect(valid).to.be.true;",
+											"});",
+											"",
+											"pm.test(\"Test reply\", function () {",
+											"    var jsonData = pm.response.json();",
+											"    pm.expect(jsonData.page).to.eql(1);",
+											"    pm.expect(jsonData.results.length).to.eql(1);",
+											"});",
+											"",
+											"pm.globals.unset(\"gladdrreg_locality_uuid\");"
+										]
+									}
+								}
+							],
+							"request": {
+								"url": "https://test.data.gl/gladdrreg/locality/1/rest/{{gladdrreg_locality_uuid}}",
+								"method": "GET",
+								"header": [],
+								"body": {},
+								"description": "Lookup a specific locality in the greenland address register."
+							},
+							"response": []
 						}
 					],
 					"_postman_isSubFolder": true
 				},
 				{
 					"name": "Municipality",
-					"description": "",
+					"description": "Test the municipality endpoint.",
 					"item": [
 						{
-							"name": "Self documented API",
+							"name": "1.1 Self documented API",
 							"event": [
 								{
 									"listen": "test",
@@ -2696,6 +3384,47 @@
 											"pm.test(\"Status code is 200\", function () {",
 											"    pm.response.to.have.status(200);",
 											"});"
+										]
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											"var schema = {",
+											"    \"type\": \"object\",",
+											"    \"additionalProperties\": false,",
+											"    \"minProperties\": 8,",
+											"    \"properties\": {",
+											"        \"path\": {",
+											"            \"type\": \"string\"",
+											"        },",
+											"        \"terms\": {",
+											"            \"type\": \"string\"",
+											"        },",
+											"        \"requestTimestamp\": {",
+											"            \"type\": \"string\"",
+											"        },",
+											"        \"responseTimestamp\": {",
+											"            \"type\": \"string\"",
+											"        },",
+											"        \"username\": {",
+											"            \"type\": \"string\"",
+											"        },",
+											"        \"page\": {",
+											"            \"type\": \"number\"",
+											"        },",
+											"        \"pageSize\": {",
+											"            \"type\": \"number\"",
+											"        },",
+											"        \"results\": {",
+											"            \"type\": \"array\",",
+											"        }",
+											"    }",
+											"};",
+											"",
+											"pm.globals.set(\"gladdrreg_municipality_schema\", JSON.stringify(schema));"
 										]
 									}
 								}
@@ -2708,16 +3437,121 @@
 								"description": "Call the self documentation endpoint."
 							},
 							"response": []
+						},
+						{
+							"name": "1.2 Search for an municipality",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											"pm.test(\"Status code\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"var schema = JSON.parse(pm.globals.get(\"gladdrreg_municipality_schema\"));",
+											"",
+											"pm.test('Schema is valid', function() {",
+											"    var jsonData = pm.response.json();",
+											"    valid = tv4.validate(jsonData, schema);",
+											"    // console.log(tv4.error);",
+											"    pm.expect(valid).to.be.true;",
+											"});",
+											"",
+											"pm.test(\"Test reply\", function () {",
+											"    var jsonData = pm.response.json();",
+											"    pm.expect(jsonData.page).to.eql(1);",
+											"    pm.expect(jsonData.results.length).to.not.eql(0);",
+											"    pm.globals.set(\"gladdrreg_municipality_uuid\", jsonData.results[0].UUID);",
+											"});"
+										]
+									}
+								}
+							],
+							"request": {
+								"url": {
+									"raw": "https://test.data.gl/gladdrreg/municipality/1/rest/search?a=b",
+									"protocol": "https",
+									"host": [
+										"test",
+										"data",
+										"gl"
+									],
+									"path": [
+										"gladdrreg",
+										"municipality",
+										"1",
+										"rest",
+										"search"
+									],
+									"query": [
+										{
+											"key": "a",
+											"value": "b",
+											"equals": true,
+											"description": ""
+										}
+									],
+									"variable": []
+								},
+								"method": "GET",
+								"header": [],
+								"body": {},
+								"description": "Search for an municipality in the greenland address register."
+							},
+							"response": []
+						},
+						{
+							"name": "1.3 Lookup municipality",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											"pm.test(\"Status code\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"var schema = JSON.parse(pm.globals.get(\"gladdrreg_municipality_schema\"));",
+											"",
+											"pm.test('Schema is valid', function() {",
+											"    var jsonData = pm.response.json();",
+											"    valid = tv4.validate(jsonData, schema);",
+											"    // console.log(tv4.error);",
+											"    pm.expect(valid).to.be.true;",
+											"});",
+											"",
+											"pm.test(\"Test reply\", function () {",
+											"    var jsonData = pm.response.json();",
+											"    pm.expect(jsonData.page).to.eql(1);",
+											"    pm.expect(jsonData.results.length).to.eql(1);",
+											"});",
+											"",
+											"pm.globals.unset(\"gladdrreg_municipality_uuid\");"
+										]
+									}
+								}
+							],
+							"request": {
+								"url": "https://test.data.gl/gladdrreg/municipality/1/rest/{{gladdrreg_municipality_uuid}}",
+								"method": "GET",
+								"header": [],
+								"body": {},
+								"description": "Lookup a specific municipality in the greenland address register."
+							},
+							"response": []
 						}
 					],
 					"_postman_isSubFolder": true
 				},
 				{
 					"name": "PostalCode",
-					"description": "",
+					"description": "Test the postalcode endpoint.",
 					"item": [
 						{
-							"name": "Self documented API",
+							"name": "1.1 Self documented API",
 							"event": [
 								{
 									"listen": "test",
@@ -2736,6 +3570,47 @@
 											"pm.test(\"Status code is 200\", function () {",
 											"    pm.response.to.have.status(200);",
 											"});"
+										]
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											"var schema = {",
+											"    \"type\": \"object\",",
+											"    \"additionalProperties\": false,",
+											"    \"minProperties\": 8,",
+											"    \"properties\": {",
+											"        \"path\": {",
+											"            \"type\": \"string\"",
+											"        },",
+											"        \"terms\": {",
+											"            \"type\": \"string\"",
+											"        },",
+											"        \"requestTimestamp\": {",
+											"            \"type\": \"string\"",
+											"        },",
+											"        \"responseTimestamp\": {",
+											"            \"type\": \"string\"",
+											"        },",
+											"        \"username\": {",
+											"            \"type\": \"string\"",
+											"        },",
+											"        \"page\": {",
+											"            \"type\": \"number\"",
+											"        },",
+											"        \"pageSize\": {",
+											"            \"type\": \"number\"",
+											"        },",
+											"        \"results\": {",
+											"            \"type\": \"array\",",
+											"        }",
+											"    }",
+											"};",
+											"",
+											"pm.globals.set(\"gladdrreg_postalcode_schema\", JSON.stringify(schema));"
 										]
 									}
 								}
@@ -2748,16 +3623,121 @@
 								"description": "Call the self documentation endpoint."
 							},
 							"response": []
+						},
+						{
+							"name": "1.2 Search for an postalcode",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											"pm.test(\"Status code\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"var schema = JSON.parse(pm.globals.get(\"gladdrreg_postalcode_schema\"));",
+											"",
+											"pm.test('Schema is valid', function() {",
+											"    var jsonData = pm.response.json();",
+											"    valid = tv4.validate(jsonData, schema);",
+											"    // console.log(tv4.error);",
+											"    pm.expect(valid).to.be.true;",
+											"});",
+											"",
+											"pm.test(\"Test reply\", function () {",
+											"    var jsonData = pm.response.json();",
+											"    pm.expect(jsonData.page).to.eql(1);",
+											"    pm.expect(jsonData.results.length).to.not.eql(0);",
+											"    pm.globals.set(\"gladdrreg_postalcode_uuid\", jsonData.results[0].UUID);",
+											"});"
+										]
+									}
+								}
+							],
+							"request": {
+								"url": {
+									"raw": "https://test.data.gl/gladdrreg/municipality/1/rest/search?a=b",
+									"protocol": "https",
+									"host": [
+										"test",
+										"data",
+										"gl"
+									],
+									"path": [
+										"gladdrreg",
+										"municipality",
+										"1",
+										"rest",
+										"search"
+									],
+									"query": [
+										{
+											"key": "a",
+											"value": "b",
+											"equals": true,
+											"description": ""
+										}
+									],
+									"variable": []
+								},
+								"method": "GET",
+								"header": [],
+								"body": {},
+								"description": "Search for an postalcode in the greenland address register."
+							},
+							"response": []
+						},
+						{
+							"name": "1.3 Lookup postalcode",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											"pm.test(\"Status code\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"var schema = JSON.parse(pm.globals.get(\"gladdrreg_postalcode_schema\"));",
+											"",
+											"pm.test('Schema is valid', function() {",
+											"    var jsonData = pm.response.json();",
+											"    valid = tv4.validate(jsonData, schema);",
+											"    // console.log(tv4.error);",
+											"    pm.expect(valid).to.be.true;",
+											"});",
+											"",
+											"pm.test(\"Test reply\", function () {",
+											"    var jsonData = pm.response.json();",
+											"    pm.expect(jsonData.page).to.eql(1);",
+											"    pm.expect(jsonData.results.length).to.eql(1);",
+											"});",
+											"",
+											"pm.globals.unset(\"gladdrreg_postalcode_uuid\");"
+										]
+									}
+								}
+							],
+							"request": {
+								"url": "https://test.data.gl/gladdrreg/municipality/1/rest/{{gladdrreg_postalcode_uuid}}",
+								"method": "GET",
+								"header": [],
+								"body": {},
+								"description": "Lookup a specific postalcode in the greenland address register."
+							},
+							"response": []
 						}
 					],
 					"_postman_isSubFolder": true
 				},
 				{
 					"name": "Road",
-					"description": "",
+					"description": "Test the road endpoint.",
 					"item": [
 						{
-							"name": "Self documented API",
+							"name": "1.1 Self documented API",
 							"event": [
 								{
 									"listen": "test",
@@ -2776,6 +3756,47 @@
 											"pm.test(\"Status code is 200\", function () {",
 											"    pm.response.to.have.status(200);",
 											"});"
+										]
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											"var schema = {",
+											"    \"type\": \"object\",",
+											"    \"additionalProperties\": false,",
+											"    \"minProperties\": 8,",
+											"    \"properties\": {",
+											"        \"path\": {",
+											"            \"type\": \"string\"",
+											"        },",
+											"        \"terms\": {",
+											"            \"type\": \"string\"",
+											"        },",
+											"        \"requestTimestamp\": {",
+											"            \"type\": \"string\"",
+											"        },",
+											"        \"responseTimestamp\": {",
+											"            \"type\": \"string\"",
+											"        },",
+											"        \"username\": {",
+											"            \"type\": \"string\"",
+											"        },",
+											"        \"page\": {",
+											"            \"type\": \"number\"",
+											"        },",
+											"        \"pageSize\": {",
+											"            \"type\": \"number\"",
+											"        },",
+											"        \"results\": {",
+											"            \"type\": \"array\",",
+											"        }",
+											"    }",
+											"};",
+											"",
+											"pm.globals.set(\"gladdrreg_road_schema\", JSON.stringify(schema));"
 										]
 									}
 								}
@@ -2788,16 +3809,121 @@
 								"description": "Call the self documentation endpoint."
 							},
 							"response": []
+						},
+						{
+							"name": "1.2 Search for an road",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											"pm.test(\"Status code\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"var schema = JSON.parse(pm.globals.get(\"gladdrreg_road_schema\"));",
+											"",
+											"pm.test('Schema is valid', function() {",
+											"    var jsonData = pm.response.json();",
+											"    valid = tv4.validate(jsonData, schema);",
+											"    // console.log(tv4.error);",
+											"    pm.expect(valid).to.be.true;",
+											"});",
+											"",
+											"pm.test(\"Test reply\", function () {",
+											"    var jsonData = pm.response.json();",
+											"    pm.expect(jsonData.page).to.eql(1);",
+											"    pm.expect(jsonData.results.length).to.not.eql(0);",
+											"    pm.globals.set(\"gladdrreg_road_uuid\", jsonData.results[0].UUID);",
+											"});"
+										]
+									}
+								}
+							],
+							"request": {
+								"url": {
+									"raw": "https://test.data.gl/gladdrreg/road/1/rest/search?a=b",
+									"protocol": "https",
+									"host": [
+										"test",
+										"data",
+										"gl"
+									],
+									"path": [
+										"gladdrreg",
+										"road",
+										"1",
+										"rest",
+										"search"
+									],
+									"query": [
+										{
+											"key": "a",
+											"value": "b",
+											"equals": true,
+											"description": ""
+										}
+									],
+									"variable": []
+								},
+								"method": "GET",
+								"header": [],
+								"body": {},
+								"description": "Search for an road in the greenland address register."
+							},
+							"response": []
+						},
+						{
+							"name": "1.3 Lookup road",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											"pm.test(\"Status code\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"var schema = JSON.parse(pm.globals.get(\"gladdrreg_road_schema\"));",
+											"",
+											"pm.test('Schema is valid', function() {",
+											"    var jsonData = pm.response.json();",
+											"    valid = tv4.validate(jsonData, schema);",
+											"    // console.log(tv4.error);",
+											"    pm.expect(valid).to.be.true;",
+											"});",
+											"",
+											"pm.test(\"Test reply\", function () {",
+											"    var jsonData = pm.response.json();",
+											"    pm.expect(jsonData.page).to.eql(1);",
+											"    pm.expect(jsonData.results.length).to.eql(1);",
+											"});",
+											"",
+											"pm.globals.unset(\"gladdrreg_road_uuid\");"
+										]
+									}
+								}
+							],
+							"request": {
+								"url": "https://test.data.gl/gladdrreg/road/1/rest/{{gladdrreg_road_uuid}}",
+								"method": "GET",
+								"header": [],
+								"body": {},
+								"description": "Lookup a specific road in the greenland address register."
+							},
+							"response": []
 						}
 					],
 					"_postman_isSubFolder": true
 				},
 				{
 					"name": "State",
-					"description": "",
+					"description": "Test the state endpoint.",
 					"item": [
 						{
-							"name": "Self documented API",
+							"name": "1.1 Self documented API",
 							"event": [
 								{
 									"listen": "test",
@@ -2818,6 +3944,47 @@
 											"});"
 										]
 									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											"var schema = {",
+											"    \"type\": \"object\",",
+											"    \"additionalProperties\": false,",
+											"    \"minProperties\": 8,",
+											"    \"properties\": {",
+											"        \"path\": {",
+											"            \"type\": \"string\"",
+											"        },",
+											"        \"terms\": {",
+											"            \"type\": \"string\"",
+											"        },",
+											"        \"requestTimestamp\": {",
+											"            \"type\": \"string\"",
+											"        },",
+											"        \"responseTimestamp\": {",
+											"            \"type\": \"string\"",
+											"        },",
+											"        \"username\": {",
+											"            \"type\": \"string\"",
+											"        },",
+											"        \"page\": {",
+											"            \"type\": \"number\"",
+											"        },",
+											"        \"pageSize\": {",
+											"            \"type\": \"number\"",
+											"        },",
+											"        \"results\": {",
+											"            \"type\": \"array\",",
+											"        }",
+											"    }",
+											"};",
+											"",
+											"pm.globals.set(\"gladdrreg_state_schema\", JSON.stringify(schema));"
+										]
+									}
 								}
 							],
 							"request": {
@@ -2826,6 +3993,111 @@
 								"header": [],
 								"body": {},
 								"description": "Call the self documentation endpoint."
+							},
+							"response": []
+						},
+						{
+							"name": "1.2 Search for an state",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											"pm.test(\"Status code\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"var schema = JSON.parse(pm.globals.get(\"gladdrreg_state_schema\"));",
+											"",
+											"pm.test('Schema is valid', function() {",
+											"    var jsonData = pm.response.json();",
+											"    valid = tv4.validate(jsonData, schema);",
+											"    // console.log(tv4.error);",
+											"    pm.expect(valid).to.be.true;",
+											"});",
+											"",
+											"pm.test(\"Test reply\", function () {",
+											"    var jsonData = pm.response.json();",
+											"    pm.expect(jsonData.page).to.eql(1);",
+											"    pm.expect(jsonData.results.length).to.not.eql(0);",
+											"    pm.globals.set(\"gladdrreg_state_uuid\", jsonData.results[0].UUID);",
+											"});"
+										]
+									}
+								}
+							],
+							"request": {
+								"url": {
+									"raw": "https://test.data.gl/gladdrreg/state/1/rest/search?a=b",
+									"protocol": "https",
+									"host": [
+										"test",
+										"data",
+										"gl"
+									],
+									"path": [
+										"gladdrreg",
+										"state",
+										"1",
+										"rest",
+										"search"
+									],
+									"query": [
+										{
+											"key": "a",
+											"value": "b",
+											"equals": true,
+											"description": ""
+										}
+									],
+									"variable": []
+								},
+								"method": "GET",
+								"header": [],
+								"body": {},
+								"description": "Search for an state in the greenland address register."
+							},
+							"response": []
+						},
+						{
+							"name": "1.3 Lookup state",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											"pm.test(\"Status code\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"var schema = JSON.parse(pm.globals.get(\"gladdrreg_state_schema\"));",
+											"",
+											"pm.test('Schema is valid', function() {",
+											"    var jsonData = pm.response.json();",
+											"    valid = tv4.validate(jsonData, schema);",
+											"    // console.log(tv4.error);",
+											"    pm.expect(valid).to.be.true;",
+											"});",
+											"",
+											"pm.test(\"Test reply\", function () {",
+											"    var jsonData = pm.response.json();",
+											"    pm.expect(jsonData.page).to.eql(1);",
+											"    pm.expect(jsonData.results.length).to.eql(1);",
+											"});",
+											"",
+											"pm.globals.unset(\"gladdrreg_state_uuid\");"
+										]
+									}
+								}
+							],
+							"request": {
+								"url": "https://test.data.gl/gladdrreg/state/1/rest/{{gladdrreg_state_uuid}}",
+								"method": "GET",
+								"header": [],
+								"body": {},
+								"description": "Lookup a specific state in the greenland address register."
 							},
 							"response": []
 						}
